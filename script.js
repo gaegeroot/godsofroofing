@@ -109,9 +109,24 @@
             }, { once: true });
         };
 
+        // If the video can't play (e.g. the host ignores byte-range requests, which iOS requires),
+        // fall back to the poster frame as a still image. Only hide the block if the poster is missing too.
+        let still = null;
         video.addEventListener("error", () => {
-            heroVideo.hidden = true;
-            grid.classList.remove("has-video");
+            const hide = () => {
+                heroVideo.hidden = true;
+                grid.classList.remove("has-video");
+            };
+            if (!video.poster) return hide();
+            if (!still) {
+                still = new Image();
+                still.alt = video.getAttribute("aria-label") || "";
+                still.addEventListener("error", hide);
+                video.after(still);
+            }
+            still.src = video.poster;
+            video.hidden = true;
+            soundBtn.hidden = true;
         });
 
         soundBtn.addEventListener("click", () => {
