@@ -217,8 +217,23 @@
     font-size: 16px;
 }
 
+/* Column layout so the "Plugs" line sits at the bottom of every card in a row */
+.leaks .feature {
+    display: flex;
+    flex-direction: column;
+}
+
+.leaks .step-num {
+    flex-shrink: 0;
+}
+
+/* Keeps a minimum gap above the divider in the tallest card */
+.leaks .feature p:not(.plug) {
+    margin-bottom: 14px;
+}
+
 .plug {
-    margin-top: 14px !important;
+    margin-top: auto !important;
     padding-top: 12px;
     border-top: 1px solid var(--line);
     font-size: 14.5px !important;
