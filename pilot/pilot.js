@@ -1,33 +1,34 @@
-/* Gods of Roofing — Lead Leak Pilot page */
+/* Gods of Roofing — Founding Partner Program page */
 
 /* =====================================================================
    CONFIG: every editable value lives here.
-   Anything left as "" keeps its yellow [PLACEHOLDER] on the page.
    ===================================================================== */
 const CONFIG = {
-    offerName: "Lead Leak Pilot",
+    offerName: "Founding Partner Program",
     price: "$599",
-    priceTerm: "",          // e.g. "one-time" or "/month"   [CONFIRM]
-    pilotLength: "30",      // days                         [CONFIRM]
+    priceTerm: "one-time",
     spots: 3,
-    spotsRemaining: 3,      // update as spots fill
-
-    vsl: {
-        // The video's EMBED url, not the watch page. Captions:
-        //   YouTube: https://www.youtube-nocookie.com/embed/VIDEO_ID?cc_load_policy=1&rel=0
-        //   Vimeo:   https://player.vimeo.com/video/VIDEO_ID?texttrack=en
-        //   Wistia:  turn captions on in the Wistia player settings
-        embedUrl: "",       // [VSL EMBED URL]
-        poster: "",         // [VSL POSTER IMAGE] 1280x720 jpg, e.g. "vsl-poster.jpg"
-    },
+    spotsRemaining: 3,      // update as spots fill; the page's spot markers follow this
+    accessDays: "30",       // days of direct access included with the implementation
+    avgJobValue: "$8,900",  // average roofing job revenue used in "the math" comparison
 
     calendar: {
         // Booking page URL (Calendly, Cal.com, GoHighLevel...). Loaded in an iframe, with any
         // utm_* parameters from the ad click passed through.
+        // Until this is set, the booking section shows an "Email to book a call" button instead.
         url: "",            // [CALENDAR EMBED URL]
     },
 
-    privacyUrl: "",         // [PRIVACY POLICY URL]
+    vsl: {
+        // Optional short video in the "Who you'd be working with" section. Hidden until set.
+        // Use the EMBED url, not the watch page. Captions:
+        //   YouTube: https://www.youtube-nocookie.com/embed/VIDEO_ID?cc_load_policy=1&rel=0
+        //   Vimeo:   https://player.vimeo.com/video/VIDEO_ID?texttrack=en
+        embedUrl: "",
+        poster: "",         // 1280x720 jpg, e.g. "vsl-poster.jpg"
+    },
+
+    privacyUrl: "",         // [PRIVACY POLICY URL] the footer link stays hidden until this is set
     metaPixelId: "",        // [PIXEL ID]
     ga4Id: "",              // [ANALYTICS ID]  e.g. "G-XXXXXXX"
 };
@@ -36,21 +37,34 @@ const CONFIG = {
     "use strict";
 
     /* ---------- Fill CONFIG values into the page ---------- */
+    const WORDS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"];
+    const values = { ...CONFIG, spotsWord: WORDS[CONFIG.spots] || String(CONFIG.spots) };
+
     document.querySelectorAll("[data-cfg]").forEach((el) => {
-        const value = CONFIG[el.dataset.cfg];
+        const value = values[el.dataset.cfg];
         if (value === "" || value === undefined || value === null) return;
         el.textContent = String(value);
-        el.classList.remove("ph");
     });
-    if (CONFIG.offerName) document.title = `${CONFIG.offerName} | Gods of Roofing`;
+
+    /* Spot markers: one per spot, filled ones marked as taken */
+    const open = Math.max(0, Math.min(CONFIG.spotsRemaining, CONFIG.spots));
+    document.querySelectorAll("[data-slots]").forEach((slots) => {
+        slots.replaceChildren(...Array.from({ length: CONFIG.spots }, (_, i) => {
+            const s = document.createElement("span");
+            s.className = `slot ${i < CONFIG.spots - open ? "is-taken" : "is-open"}`;
+            s.setAttribute("aria-hidden", "true");
+            return s;
+        }));
+        slots.setAttribute("aria-label", `${open} of ${CONFIG.spots} founding partner spots open`);
+    });
 
     const year = document.querySelector("[data-year]");
     if (year) year.textContent = new Date().getFullYear();
 
     const privacy = document.querySelector("[data-privacy-link]");
-    if (privacy) {
-        if (CONFIG.privacyUrl) privacy.href = CONFIG.privacyUrl;
-        else privacy.textContent = "Privacy policy [URL]";
+    if (privacy && CONFIG.privacyUrl) {
+        privacy.href = CONFIG.privacyUrl;
+        privacy.hidden = false;
     }
 
     /* ---------- Tracking ---------- */
@@ -84,38 +98,35 @@ const CONFIG = {
         window.gtag("config", CONFIG.ga4Id);
     }
 
-    /* ---------- VSL: click to load ---------- */
+    /* ---------- Optional video: click to load ---------- */
     const vsl = document.querySelector("[data-vsl]");
-    const vslPlay = document.querySelector("[data-vsl-play]");
-    const poster = document.querySelector("[data-vsl-poster]");
-
-    if (CONFIG.vsl.poster) {
-        poster.src = CONFIG.vsl.poster;
-        poster.hidden = false;
+    if (vsl && CONFIG.vsl.embedUrl) {
+        vsl.hidden = false;
+        const poster = vsl.querySelector("[data-vsl-poster]");
+        if (CONFIG.vsl.poster) {
+            poster.src = CONFIG.vsl.poster;
+            poster.hidden = false;
+        }
+        vsl.querySelector("[data-vsl-play]").addEventListener("click", () => {
+            const url = new URL(CONFIG.vsl.embedUrl, location.href);
+            // The visitor already pressed play, so start right away.
+            // Wistia uses autoPlay=true instead; add it to embedUrl if that's the host.
+            url.searchParams.set("autoplay", "1");
+            const iframe = document.createElement("iframe");
+            iframe.src = url.toString();
+            iframe.title = "Video from Gaege, founder of Gods of Roofing";
+            iframe.allow = "autoplay; fullscreen; picture-in-picture; encrypted-media";
+            iframe.allowFullscreen = true;
+            vsl.replaceChildren(iframe);
+            iframe.focus();
+            track("ViewContent", { content_name: CONFIG.offerName });
+        });
     }
-    if (CONFIG.vsl.embedUrl) {
-        document.querySelector("[data-vsl-missing]").remove();
-    }
 
-    vslPlay.addEventListener("click", () => {
-        if (!CONFIG.vsl.embedUrl) return;
-        const url = new URL(CONFIG.vsl.embedUrl, location.href);
-        // Start playing right away (the visitor already pressed play), with sound.
-        // Wistia uses autoPlay=true instead; add it to embedUrl if that's the host.
-        url.searchParams.set("autoplay", "1");
-        const iframe = document.createElement("iframe");
-        iframe.src = url.toString();
-        iframe.title = `${CONFIG.offerName} video`;
-        iframe.allow = "autoplay; fullscreen; picture-in-picture; encrypted-media";
-        iframe.allowFullscreen = true;
-        vsl.replaceChildren(iframe);
-        iframe.focus();
-        track("ViewContent", { content_name: CONFIG.offerName });
-    });
-
-    /* ---------- Calendar: load when it's close to the screen ---------- */
+    /* ---------- Booking: calendar embed, or email until one is set ---------- */
     const calendar = document.querySelector("[data-calendar]");
     const calendarLink = document.querySelector("[data-calendar-link]");
+    const calendarFallback = document.querySelector("[data-calendar-fallback]");
 
     const withUtms = (base) => {
         const url = new URL(base, location.href);
@@ -128,12 +139,12 @@ const CONFIG = {
     if (CONFIG.calendar.url) {
         const calendarUrl = withUtms(CONFIG.calendar.url);
         calendarLink.href = calendarUrl;
+        calendarFallback.hidden = false;
 
         const loadCalendar = () => {
             const iframe = document.createElement("iframe");
             iframe.src = calendarUrl;
-            iframe.title = "Book a call";
-            iframe.loading = "lazy";
+            iframe.title = "Book a call to see if you're a good fit";
             calendar.replaceChildren(iframe);
             calendar.classList.add("is-loaded");
         };
@@ -150,7 +161,8 @@ const CONFIG = {
             loadCalendar();
         }
     } else {
-        calendarLink.closest("p").hidden = true;
+        const email = document.querySelector("[data-calendar-email]");
+        if (email) email.addEventListener("click", () => track("Contact", { content_name: CONFIG.offerName }));
     }
 
     /* ---------- "Schedule" event when a booking completes ----------
@@ -177,18 +189,18 @@ const CONFIG = {
         window.addEventListener("scroll", onScroll, { passive: true });
     }
 
-    /* ---------- Sticky CTA: hide once the booking section is on screen ---------- */
+    /* ---------- Sticky CTA: only when no other booking button is on screen ---------- */
     const sticky = document.querySelector("[data-sticky-cta]");
+    const heroCta = document.querySelector("[data-hero-cta]");
     const book = document.getElementById("book");
-    if (sticky && book && "IntersectionObserver" in window) {
-        new IntersectionObserver((entries) => {
-            sticky.classList.toggle("is-hidden", entries[0].isIntersecting);
-        }, { threshold: 0.05 }).observe(book);
+    if (sticky && "IntersectionObserver" in window) {
+        const visible = new Map();
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach((e) => visible.set(e.target, e.isIntersecting));
+            sticky.classList.toggle("is-hidden", [...visible.values()].some(Boolean));
+        }, { threshold: 0 });
+        [heroCta, book].forEach((el) => el && io.observe(el));
+    } else if (sticky) {
+        sticky.classList.remove("is-hidden");
     }
-
-    /* ---------- FAQ: one open at a time (for browsers without <details name>) ---------- */
-    const faqs = Array.from(document.querySelectorAll(".faq-list details"));
-    faqs.forEach((d) => d.addEventListener("toggle", () => {
-        if (d.open) faqs.forEach((o) => { if (o !== d) o.open = false; });
-    }));
 })();

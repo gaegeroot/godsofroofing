@@ -7,28 +7,31 @@
 
     <!-- ===================================================================
          EDITABLE VALUES live in pilot.js (CONFIG at the top of the file):
-         offer name, price, price term, pilot length, spots, VSL, calendar,
-         pixel and analytics IDs. Text below is the fallback shown before
-         the script runs, so keep it roughly in sync if you change CONFIG.
-         The <title> and meta tags can't be set from CONFIG for link
-         previews (Facebook reads the raw HTML), so edit them here too.
+         price, spots, spots remaining, booking calendar, optional video,
+         privacy policy, pixel and analytics IDs. Text below is the fallback
+         shown before the script runs, so keep it in sync if you change CONFIG.
+         The <title> and meta tags can't be set from CONFIG for link previews
+         (Facebook reads the raw HTML), so edit them here too.
 
          STYLES: this page uses the main site's stylesheet (../styles.css)
-         and its components. pilot.css only adds the few pieces the main
-         site doesn't have (video, leak pipe, calendar, sticky phone CTA).
+         and its components. pilot.css adds only what this page needs.
+
+         COPY RULES for this page: one message (you're already paying for
+         these leads), no invented stats, results, testimonials, or
+         deadlines. Only the five core pieces are offered.
          =================================================================== -->
-    <title>Lead Leak Pilot | Gods of Roofing</title>
+    <title>Founding Partner Program | Gods of Roofing</title>
     <meta name="description"
-        content="A 30-day pilot for three roofing companies: plug the leaks between new lead and signed roof. $599.">
-    <!-- Ad landing page: kept out of search results. [CONFIRM noindex] -->
+        content="Answer every new roofing lead right away, text back missed calls, and follow up until they book. Three founding-partner spots for roofing companies. $599 one-time.">
+    <!-- Ad landing page: kept out of search results. -->
     <meta name="robots" content="noindex, follow">
 
-    <meta property="og:title" content="Lead Leak Pilot | Gods of Roofing">
+    <meta property="og:title" content="You paid for the lead. Another roofer got the job.">
     <meta property="og:description"
-        content="Plug the leaks between new lead and signed roof. Three roofing companies. $599.">
+        content="Instant replies, missed-call text back, and follow-up that doesn't forget. Three roofing companies. $599 one-time.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://godsofroofing.com/pilot/">
-    <!-- [OG IMAGE URL] 1200x630, absolute URL -->
+    <!-- [OG IMAGE] 1200x630, absolute URL -->
     <meta property="og:image" content="https://godsofroofing.com/pilot/og-image.jpg">
     <meta name="theme-color" content="#121C2E">
 
@@ -58,14 +61,14 @@
                 </svg>
                 <span class="brand-name">Gods of Roofing</span>
             </a>
-            <a class="btn btn-primary btn-sm" href="#book">Book a call</a>
+            <a class="btn btn-primary btn-sm" href="#book">See if you're a good fit</a>
         </div>
     </header>
 
     <main id="main">
 
         <!-- ============ 1. HERO ============ -->
-        <section class="hero pilot-hero">
+        <section class="hero pilot-hero" aria-labelledby="hero-h">
             <svg class="hero-gables" viewBox="0 0 1200 520" preserveAspectRatio="xMidYMin slice" aria-hidden="true">
                 <g fill="none" stroke="currentColor" stroke-width="1">
                     <path d="M-100 520 600 40l700 480" />
@@ -77,313 +80,349 @@
                 </g>
             </svg>
 
-            <div class="container hero-copy">
-                <p class="pill"><span class="pill-dot" aria-hidden="true"></span><span>For roofing contractors · <span
-                        data-cfg="spots">3</span>&nbsp;spots</span></p>
+            <div class="container pilot-hero-grid">
+                <div class="hero-copy">
+                    <p class="pill"><span class="pill-dot" aria-hidden="true"></span><span>Founding partner program
+                            · <b>For roofing companies</b></span></p>
 
-                <h1>You don't have a lead problem. You've got a leaky bucket.</h1>
-                <!-- Alternate headlines:
-                     <h1>Stop paying for leads that slip out the bottom.</h1>
-                     <h1>Plug the leaks before you buy more leads.</h1> -->
+                    <h1 id="hero-h"><span class="h1-setup">You paid for the lead.</span> <span
+                            class="h1-hit">Another roofer got the job.</span></h1>
+                    <!-- Other headlines considered:
+                         "They called you first. They hired the roofer who called back."
+                         "Your ad brought them in. Your competitor's crew is on their roof."
+                         "You paid for the lead. Don't lose the job to whoever answers first."
+                         "You're already paying for roofing leads. Make sure you're not losing them." -->
 
-                <p class="lede">In <span data-cfg="pilotLength">30</span> days we plug the holes between "new lead" and
-                    "signed roof." <span data-cfg="spots">3</span> roofing companies. <span
-                        data-cfg="price">$599</span>.</p>
+                    <p class="lede"><strong>Not because they were better or cheaper. Because they got back to the
+                            homeowner first.</strong> We set up a simple system that answers every new inquiry right
+                        away, texts back the calls you miss, and keeps following up until the homeowner books.</p>
 
-                <!-- VSL: click-to-load. Nothing from the video host downloads until someone presses play.
-                     Set CONFIG.vsl.embedUrl and CONFIG.vsl.poster in pilot.js. -->
-                <div class="vsl" data-vsl>
-                    <button class="vsl-play" type="button" data-vsl-play aria-label="Play the video">
-                        <img class="vsl-poster" data-vsl-poster alt="" width="1280" height="720" hidden>
-                        <span class="vsl-placeholder ph" data-vsl-missing>[VSL EMBED URL]</span>
-                        <span class="vsl-btn" aria-hidden="true">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M8 5.5v13l11-6.5z" fill="currentColor" />
+                    <div class="hero-spots">
+                        <div class="slots" data-slots aria-label="3 of 3 founding partner spots open">
+                            <span class="slot is-open" aria-hidden="true"></span>
+                            <span class="slot is-open" aria-hidden="true"></span>
+                            <span class="slot is-open" aria-hidden="true"></span>
+                        </div>
+                        <p><b>I'm only taking on <span data-cfg="spotsWord">three</span> roofing companies.</b>
+                            Each one gets a lot of my time, so that's the limit. <span class="hero-spots-count">
+                                <!-- <span
+                                    data-cfg="spotsRemaining">3</span> of <span data-cfg="spots">3</span> spots
+                                open.</span></p> -->
+                    </div>
+
+                    <div class="hero-ctas">
+                        <a class="btn btn-primary btn-lg" href="#book" data-hero-cta>See if you're a good fit</a>
+                    </div>
+                    <p class="hero-note">A 30-minute call. No obligation.</p>
+                </div>
+
+                <!-- Illustration: what a homeowner sees after filling out the contractor's web form -->
+                <figure class="convo" aria-labelledby="convo-cap">
+                    <div class="phone" role="img"
+                        aria-label="Example text conversation. A homeowner submits an estimate request at 2:14 PM, gets a text from the roofing company the same minute, and books an inspection for Thursday at 3:30 PM.">
+                        <div class="phone-top" aria-hidden="true">
+                            <span class="phone-avatar">DR</span>
+                            <span class="phone-who"><b>Dana R.</b><small>Estimate request · Web form</small></span>
+                        </div>
+                        <div class="phone-thread" aria-hidden="true">
+                            <p class="msg-sys">Today 2:14 PM</p>
+                            <p class="msg msg-out">Hi Dana, it's Your Roofing Co. Got your request about the leak over
+                                the garage. Can we come take a look this week?</p>
+                            <p class="msg msg-in">Yes please. Thursday afternoon?</p>
+                            <p class="msg msg-out">Thursday works. Does 3:30 PM fit?</p>
+                            <p class="msg msg-in">Perfect, see you then</p>
+                            <p class="msg-booked">
+                                <svg viewBox="0 0 20 20" aria-hidden="true">
+                                    <path d="m5.5 10.5 3 3 6-7" fill="none" stroke="currentColor" stroke-width="2.2"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                Inspection booked · Thu 3:30 PM
+                            </p>
+                        </div>
+                    </div>
+                    <figcaption id="convo-cap">Example conversation. Your messages are written in your company's
+                        voice.</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <!-- ============ 2. THE PROBLEM ============ -->
+        <section class="section section-paper" aria-labelledby="problem-h">
+            <div class="container">
+                <header class="section-head">
+                    <h2 id="problem-h">Where roofing jobs quietly slip away</h2>
+                    <p>None of these feel like a big deal when they happen. That's the problem.</p>
+                </header>
+
+                <ul class="moments">
+                    <li class="moment">
+                        <p class="moment-alert">
+                            <span class="moment-icon moment-icon-red" aria-hidden="true">
+                                <svg viewBox="0 0 24 24">
+                                    <path
+                                        d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z" />
+                                </svg>
+                            </span>
+                            <span><b>Missed call</b><small>Tuesday, 10:41 AM</small></span>
+                        </p>
+                        <h3>You're up on a roof when the phone rings.</h3>
+                        <p>By the time you're back on the ground, it's a voicemail. By the time you call back, they may
+                            have already booked someone else.</p>
+                    </li>
+                    <li class="moment">
+                        <p class="moment-alert">
+                            <span class="moment-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M4 5h16v11H8l-4 4z" />
+                                </svg>
+                            </span>
+                            <span><b>New estimate request</b><small>Sunday, 8:15 PM · unread</small></span>
+                        </p>
+                        <h3>A homeowner fills out your form on Sunday night.</h3>
+                        <p>Nobody sees it until Monday. They probably filled out a couple of other roofers' forms that
+                            same night.</p>
+                    </li>
+                    <li class="moment">
+                        <p class="moment-alert">
+                            <span class="moment-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M12 7v5l3 2" />
+                                    <circle cx="12" cy="12" r="8.5" />
+                                </svg>
+                            </span>
+                            <span><b>Follow-up</b><small>Called once · no answer</small></span>
+                        </p>
+                        <h3>Somebody calls back once. Then the week gets busy.</h3>
+                        <p>One voicemail, no reply, and the lead drops off the list. Nobody decided to give up on it.
+                            It just happened.</p>
+                    </li>
+                    <li class="moment">
+                        <p class="moment-alert">
+                            <span class="moment-icon moment-icon-red" aria-hidden="true">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M13 2 5 13h6l-1 9 8-12h-6z" />
+                                </svg>
+                            </span>
+                            <span><b>Storm week</b><small>Voicemail full</small></span>
+                        </p>
+                        <h3>Calls come in faster than anyone can answer.</h3>
+                        <p>The busiest weeks bring in the most leads, and they're also when the most leads get
+                            missed.</p>
+                    </li>
+                </ul>
+
+                <p class="moments-close">A lot of homeowners hire the first roofer who gets back to them. That isn't
+                    always the best roofer. <strong>It's just the one who answered.</strong></p>
+            </div>
+        </section>
+
+        <!-- ============ 3. THE SOLUTION ============ -->
+        <section class="section" aria-labelledby="method-h">
+            <div class="container method">
+                <div class="method-copy">
+                    <h2 id="method-h">It might not be a lead problem.</h2>
+                    <p class="method-lede">When things slow down, most roofers look for more leads. Sometimes the
+                        bigger opportunity is in the leads you already have.</p>
+                    <p>That means answering them faster, catching the calls you miss, and following up until you get
+                        a clear yes or no. It doesn't take another hire or more hours from you. It takes a system that
+                        does the same thing every time, even when everyone's busy.</p>
+                    <p>That's what we build. It runs in the background and hands your team homeowners who are ready to
+                        talk.</p>
+                </div>
+
+                <div class="system" aria-label="How the system works">
+                    <div class="system-in">
+                        <span class="system-src">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M4 5h16v11H8l-4 4z" />
                             </svg>
+                            Web form comes in
                         </span>
-                    </button>
+                        <span class="system-src">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path
+                                    d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z" />
+                            </svg>
+                            Call goes unanswered
+                        </span>
+                    </div>
+                    <ol class="system-steps">
+                        <li>
+                            <b>They get a text right away</b>
+                            <small>While they're still looking, not hours later.</small>
+                        </li>
+                        <li>
+                            <b>Follow-up that doesn't forget</b>
+                            <small>Until they reply or tell you no.</small>
+                        </li>
+                        <li class="system-end">
+                            <b>Appointment on the calendar</b>
+                            <small>Your team takes it from there.</small>
+                        </li>
+                    </ol>
                 </div>
-
-                <div class="hero-ctas">
-                    <a class="btn btn-primary btn-lg" href="#book"><span>Grab one of the <span data-cfg="spots">3</span>
-                        spots</span></a>
-                </div>
-                <p class="hero-note">Pick a time at the bottom of the page. 30 minutes, no pressure.</p>
             </div>
         </section>
 
-        <!-- ============ 2. THE LEAK ============ -->
-        <section class="section" aria-labelledby="leak-h">
-            <div class="container leak">
-                <div class="leak-copy">
-                    <h2 id="leak-h">Where the money goes</h2>
-                    <p class="leak-lede">A form comes in while everybody's up on a roof. A call hits voicemail during
-                        storm week. Somebody gets a quote and just goes quiet.</p>
-                    <p>Every one of those is money you already spent, leaking out the bottom of the bucket. And nobody
-                        notices, because new leads keep pouring in the top.</p>
-                </div>
-
-                <ol class="pipe" aria-label="Where leads leak out between first contact and a signed roof">
-                    <li><b>New lead</b><span class="drip">Slow response</span></li>
-                    <li><b>Call to the office</b><span class="drip">Missed call</span></li>
-                    <li><b>First conversation</b><span class="drip">The first call</span></li>
-                    <li><b>Quote sent</b><span class="drip">No follow-up</span></li>
-                    <li><b>Old leads</b><span class="drip">Left for dead</span></li>
-                    <li class="pipe-end"><b>Signed roof</b></li>
-                </ol>
-            </div>
-        </section>
-
-        <!-- ============ 3. WHAT'S INCLUDED ============ -->
+        <!-- ============ 4. WHAT WE IMPLEMENT ============ -->
         <section class="section section-paper" aria-labelledby="inc-h">
             <div class="container">
                 <header class="section-head">
-                    <h2 id="inc-h">Seven leaks we plug</h2>
-                    <p>Everything below is set up and running inside the first week.</p>
+                    <h2 id="inc-h">What we set up for you</h2>
+                    <p>Five pieces that work as one system, built around how your company already runs.</p>
                 </header>
 
-                <ul class="features leaks">
-                    <li class="feature">
-                        <span class="step-num">1</span>
-                        <h3>2-minute response</h3>
-                        <p>Every web form and every missed call to the office gets a text and an email back inside 2
-                            minutes.</p>
-                        <p class="plug"><b>Plugs:</b> the homeowner calling the next roofer on the list.</p>
+                <ol class="parts">
+                    <li class="part">
+                        <span class="part-num" aria-hidden="true">1</span>
+                        <h3>Instant reply to new inquiries</h3>
+                        <p>When a homeowner submits a request on your website, they get a text from your company right
+                            away. The conversation starts while they're still interested.</p>
+                        <p class="part-why">They hear from you before they hear from someone else.</p>
                     </li>
-                    <li class="feature">
-                        <span class="step-num">2</span>
-                        <h3>Instant team alert</h3>
-                        <p>The lead pings everyone who should know, with a tap-to-call button. Whoever's free calls
-                            back.</p>
-                        <p class="plug"><b>Plugs:</b> a lead sitting in somebody's inbox.</p>
+                    <li class="part">
+                        <span class="part-num" aria-hidden="true">2</span>
+                        <h3>Missed-call text back</h3>
+                        <p>Can't pick up? The caller gets a text so they can reply on their own time instead of moving
+                            on to the next number.</p>
+                        <p class="part-why">A missed call stops being a lost lead.</p>
                     </li>
-                    <li class="feature">
-                        <span class="step-num">3</span>
-                        <h3>48-hour education emails</h3>
-                        <p>An email every 4 hours for 2 days walking the homeowner through how the process works, so
-                            they trust you before you show up.</p>
-                        <p class="plug"><b>Plugs:</b> leads going cold or shopping around.</p>
+                    <li class="part">
+                        <span class="part-num" aria-hidden="true">3</span>
+                        <h3>Follow-up on autopilot</h3>
+                        <p>If a homeowner doesn't respond, a planned series of follow-ups goes out on schedule.</p>
+                        <p class="part-why">Nobody has to remember to chase it.</p>
                     </li>
-                    <li class="feature">
-                        <span class="step-num">4</span>
-                        <h3>A real piece of mail</h3>
-                        <p>A mailer lands at the lead's house. Something they can hold, stick on the fridge, hand to
-                            their spouse.</p>
-                        <p class="plug"><b>Plugs:</b> getting buried in a crowded inbox. Most roofers don't do
-                            this.</p>
+                    <li class="part">
+                        <span class="part-num" aria-hidden="true">4</span>
+                        <h3>Appointment setting</h3>
+                        <p>The messages are written to move the homeowner toward one thing: an inspection or estimate
+                            on your calendar.</p>
+                        <p class="part-why">Less phone tag between "interested" and "booked."</p>
                     </li>
-                    <li class="feature">
-                        <span class="step-num">5</span>
-                        <h3>Dead lead reactivation</h3>
-                        <p>A text and email campaign to the old leads sitting in your system.</p>
-                        <p class="plug"><b>Plugs:</b> leads you already paid for and gave up on.</p>
-                    </li>
-                    <li class="feature">
-                        <span class="step-num">6</span>
-                        <h3>First-call audit</h3>
-                        <p>For 30 days we review your first-contact calls, then hand you a report on what to tighten
-                            up.</p>
-                        <p class="plug"><b>Plugs:</b> jobs lost in the first two minutes on the phone.</p>
-                    </li>
-                    <li class="feature">
-                        <span class="step-num">7</span>
-                        <h3>Weekly report</h3>
-                        <p>Every week: how fast leads got contacted and what's converting better than before.</p>
-                        <p class="plug"><b>Plugs:</b> guessing what's working.</p>
-                    </li>
-                    <!-- Fills the 8th cell of the grid so it isn't left empty -->
-                    <li class="feature feature-cta">
-                        <h3>All seven, live inside week one.</h3>
-                        <a class="btn btn-primary" href="#book">Grab a spot</a>
-                    </li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- ============ 4. HOW IT WORKS ============ -->
-        <!-- [CONFIRM or adjust these steps] -->
-        <section class="section" aria-labelledby="how-h">
-            <div class="container">
-                <header class="section-head">
-                    <h2 id="how-h">How the <span data-cfg="pilotLength">30</span> days go</h2>
-                </header>
-                <ol class="steps steps-4">
-                    <li class="step">
-                        <span class="step-num">1</span>
-                        <span class="tag tag-gold step-when">Week 1</span>
-                        <h3>Set it up</h3>
-                        <p>Quick call. We connect your forms and phone line and write your messages.</p>
-                    </li>
-                    <li class="step">
-                        <span class="step-num">2</span>
-                        <span class="tag tag-gold step-when">Weeks 1–4</span>
-                        <h3>Let it run</h3>
-                        <p>Everything's live. Reactivation goes out to your old leads. The first-call audit is
-                            underway.</p>
-                    </li>
-                    <li class="step">
-                        <span class="step-num">3</span>
-                        <span class="tag tag-gold step-when">Every week</span>
-                        <h3>Your report</h3>
-                        <p>What came in, how fast it got answered, and what moved.</p>
-                    </li>
-                    <li class="step">
-                        <span class="step-num">4</span>
-                        <span class="tag tag-gold step-when">Day <span data-cfg="pilotLength">30</span></span>
-                        <h3>The straight talk</h3>
-                        <p>Your call audit report, and an honest conversation about what changed.</p>
+                    <li class="part part-setup">
+                        <div>
+                            <span class="part-num" aria-hidden="true">5</span>
+                            <h3>We do the setup</h3>
+                            <p>You don't have to figure out automation. We build it around the way your office already
+                                handles leads, so you're not handed another complicated system to manage.</p>
+                        </div>
+                        <ul class="checks">
+                            <li>Connect your web forms and phone line</li>
+                            <li>Write the messages in your company's voice</li>
+                            <li>Fit the follow-up to how your team works</li>
+                            <li>Test everything before it goes live</li>
+                        </ul>
                     </li>
                 </ol>
             </div>
         </section>
 
-        <!-- ============ 5. PRICE ============ -->
-        <section class="section section-paper" aria-labelledby="price-h">
-            <div class="container">
-                <article class="plan plan-featured pilot-plan">
-                    <span class="plan-badge"><span data-cfg="spotsRemaining">3</span> of <span
-                            data-cfg="spots">3</span> spots open</span>
-                    <h2 id="price-h" data-cfg="offerName">Lead Leak Pilot</h2>
-                    <p class="price"><span class="price-amount" data-cfg="price">$599</span><span
-                            class="price-per ph" data-cfg="priceTerm">[ONE-TIME / PER MONTH]</span></p>
-                    <div class="pilot-plan-copy">
-                        <p class="pilot-plan-lead">That's not what this will cost later.</p>
-                        <p>I'm keeping it low for <span data-cfg="spots">3</span> roofing companies because I need real
-                            numbers to show the next guy. If it works, I get to share your results, with your
-                            permission. That's the deal.</p>
-                        <p class="pilot-plan-sig">Gaege, founder</p>
+        <!-- ============ 5. WHO YOU'D WORK WITH ============ -->
+        <!-- Facts below come from the About section on godsofroofing.com. Keep them in sync. -->
+        <section class="section" aria-labelledby="about-h">
+            <div class="container about pilot-about">
+                <figure class="about-photo">
+                    <img src="../images/gaege.jpg" alt="Gaege, founder of Gods of Roofing" width="800" height="1000"
+                        loading="lazy" decoding="async"
+                        onerror="this.closest('.about').classList.add('about-no-photo'); this.parentElement.remove();">
+                    <figcaption><b>Gaege</b><small>Founder, Gods of Roofing</small></figcaption>
+                </figure>
+                <div class="about-copy">
+                    <h2 id="about-h">Who you'd be working with</h2>
+                    <p class="about-lede">I'm Gaege. With only three companies in this first group, you'd be working
+                        with me directly.</p>
+                    <p>I've spent about twelve years building software and the systems that connect it. I also
+                        co-founded a junk hauling company, Clutter Cowboys, and a big part of how we grew was being
+                        obsessive about answering customers fast and keeping them in the loop.</p>
+                    <p>I'm not a roofer, and I'm not going to tell you how to run a crew. What I know how to build is a
+                        system that answers every lead and never forgets to follow up. That's the part I'll handle.</p>
+
+                    <!-- Optional video. Stays hidden until CONFIG.vsl.embedUrl is set in pilot.js.
+                         Click to load: nothing from the video host downloads until someone presses play. -->
+                    <div class="vsl" data-vsl hidden>
+                        <button class="vsl-play" type="button" data-vsl-play aria-label="Play a short video from Gaege">
+                            <img class="vsl-poster" data-vsl-poster alt="" width="1280" height="720" hidden>
+                            <span class="vsl-btn" aria-hidden="true">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M8 5.5v13l11-6.5z" fill="currentColor" />
+                                </svg>
+                            </span>
+                        </button>
                     </div>
-                    <a class="btn btn-primary btn-lg btn-block" href="#book">Grab a spot</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ 6. THE FOUNDING PARTNER OFFER ============ -->
+        <section class="section section-paper" aria-labelledby="offer-h">
+            <div class="container">
+                <article class="offer">
+                    <div class="offer-story">
+                        <p class="offer-eyebrow">Founding partner program</p>
+                        <h2 id="offer-h">I'm only taking on <span data-cfg="spotsWord">three</span> roofing
+                            companies.</h2>
+                        <p>Not to create urgency. It's because I'll be spending a lot of time with each company I
+                            accept: learning how your office handles leads, building the system around it, and staying
+                            close while it runs. I can only do that well for a few companies at a time.</p>
+
+                        <h3>What the $599 covers</h3>
+                        <p>Two things: the implementation itself, and <span data-cfg="accessDays">30</span> days of
+                            direct access to me, including any technical or automation questions that come up. For the
+                            time involved, it's honestly a steal. That's on purpose. I'd rather earn this first group's
+                            trust by doing the work up close.</p>
+
+                        <div class="anchor">
+                            <p class="anchor-head">The math worth knowing</p>
+                            <dl>
+                                <div class="anchor-row">
+                                    <dt>One job you wouldn't have closed otherwise</dt>
+                                    <dd>~<span data-cfg="avgJobValue">$8,900</span></dd>
+                                </div>
+                                <div class="anchor-row anchor-cost">
+                                    <dt>Implementation and <span data-cfg="accessDays">30</span> days with me</dt>
+                                    <dd data-cfg="price">$599</dd>
+                                </div>
+                            </dl>
+                            <p class="anchor-note">Based on an average roofing job of around <span
+                                    data-cfg="avgJobValue">$8,900</span>. That isn't a promise of results. It's what
+                                it would take for this to be worth it.</p>
+                        </div>
+
+                        <h3>When we're done, it's yours</h3>
+                        <p>You keep everything we built. No strings attached.</p>
+                    </div>
+
+                    <div class="offer-box">
+                        <div class="slots" data-slots aria-label="3 of 3 founding partner spots open">
+                            <span class="slot is-open" aria-hidden="true"></span>
+                            <span class="slot is-open" aria-hidden="true"></span>
+                            <span class="slot is-open" aria-hidden="true"></span>
+                        </div>
+                        <!-- <p class="slots-label"><span data-cfg="spotsRemaining">3</span> of <span
+                                data-cfg="spots">3</span> spots open</p> -->
+
+                        <p class="price"><span class="price-amount" data-cfg="price">$599</span><span
+                                class="price-per" data-cfg="priceTerm">one-time</span></p>
+                        <p class="offer-note">Not a monthly subscription.</p>
+                        <!-- [CONFIRM] If the client pays anything ongoing for the tools this runs on
+                             (texting, phone number, software), say so here in one plain sentence. -->
+
+                        <ul class="checks">
+                            <li>Full setup of all five pieces</li>
+                            <li><span data-cfg="accessDays">30</span> days of direct access to me, technical and
+                                automation questions included</li>
+                            <li>You keep the implementation. No strings attached.</li>
+                        </ul>
+
+                        <a class="btn btn-primary btn-lg btn-block" href="#book">See if you're a good fit</a>
+                        <p class="offer-fine">It starts with a 30-minute call. Booking doesn't guarantee a spot.</p>
+                    </div>
                 </article>
             </div>
         </section>
 
-        <!-- ============ 6. FIT ============ -->
-        <section class="section" aria-labelledby="fit-h">
-            <div class="container">
-                <header class="section-head">
-                    <h2 id="fit-h">Is this you?</h2>
-                </header>
-                <div class="results fit">
-                    <div class="plan">
-                        <h3>Good fit</h3>
-                        <ul class="checks">
-                            <li>You're already getting leads from ads, search, or referrals.</li>
-                            <li>Your office misses calls when it gets busy.</li>
-                            <li>You want to see the numbers, good or bad.</li>
-                        </ul>
-                    </div>
-                    <div class="plan">
-                        <h3>Not a fit</h3>
-                        <ul class="checks checks-no">
-                            <li>You don't have lead flow yet.</li>
-                            <li>Nobody's going to answer the leads that come back to life.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ============ 7. PROOF ============ -->
-        <!-- Testimonials copied word for word from godsofroofing.com. Don't edit the wording. -->
-        <section class="section section-paper" aria-labelledby="proof-h">
-            <div class="container">
-                <header class="section-head">
-                    <h2 id="proof-h">What people say</h2>
-                </header>
-                <div class="results">
-                    <figure class="result">
-                        <div class="result-stat">
-                            <span class="result-num">+87%</span>
-                            <span class="result-label">Appointment booking speed</span>
-                        </div>
-                        <blockquote>Gaege once again supported our automation system despite having tricky platforms
-                            to work with found a solution for every problem we encountered and delivered top quality
-                            work. Definitely recommend!</blockquote>
-                        <figcaption>
-                            <span class="av av-lg">JF</span>
-                            <span><b>James F.</b><small>Owner, Vista View Properties</small></span>
-                        </figcaption>
-                    </figure>
-                    <figure class="result">
-                        <div class="result-stat">
-                            <span class="result-num">+94%</span>
-                            <span class="result-label">Info request conversions</span>
-                        </div>
-                        <blockquote>Gaege delivered a complete automation system exactly as promised , and explained
-                            the process clearly. The final setup is running smoothly and met the scope we agreed on.
-                            Professional communication and timely delivery. Recommended for anyone wanting to have a
-                            real pro working with them, I will definitely work with him on any future projects
-                        </blockquote>
-                        <figcaption>
-                            <span class="av av-lg">EB</span>
-                            <span><b>Edwin B.</b><small>Roofing Company Owner</small></span>
-                        </figcaption>
-                    </figure>
-                    <figure class="result result-empty">
-                        <p class="ph">[PILOT CASE STUDY — coming soon]</p>
-                        <p class="result-empty-note">This spot's for one of the three pilot companies.</p>
-                    </figure>
-                </div>
-            </div>
-        </section>
-
-        <!-- ============ 8. GUARANTEE ============ -->
-        <!-- [GUARANTEE — Gaege to decide whether to offer one, e.g. a refund condition.
-             Uncomment once confirmed.]
-        <section class="section" aria-labelledby="guarantee-h">
-            <div class="container">
-                <header class="section-head">
-                    <h2 id="guarantee-h">[GUARANTEE HEADLINE]</h2>
-                    <p>[GUARANTEE TERMS]</p>
-                </header>
-            </div>
-        </section>
-        -->
-
-        <!-- ============ 9. FAQ ============ -->
-        <section class="section" aria-labelledby="faq-h">
-            <div class="container faq-wrap">
-                <div class="faq-intro">
-                    <h2 id="faq-h">Fair questions</h2>
-                    <p>Don't see yours? Ask on the call and I'll give you a straight answer.</p>
-                    <a class="btn btn-outline" href="#book">Book a call</a>
-                </div>
-                <div class="faq-list">
-                    <details name="faq">
-                        <summary>Why so cheap?</summary>
-                        <p>Because I'm building case studies. <span data-cfg="price">$599</span> covers the setup. In
-                            exchange, I get to share your results, with your permission, so the next roofer can see
-                            real numbers instead of promises.</p>
-                    </details>
-                    <details name="faq">
-                        <summary>Do I have to change how we work?</summary>
-                        <p>No. Your team just answers the leads that show up.</p>
-                    </details>
-                    <details name="faq">
-                        <summary>What do you need from me?</summary>
-                        <p>Access to your web forms and phone setup, a list of your past leads, and someone who'll
-                            answer the leads that get booked. <span class="ph">[CONFIRM]</span></p>
-                    </details>
-                    <details name="faq">
-                        <summary><span>What happens after <span data-cfg="pilotLength">30</span> days?</span></summary>
-                        <p><span class="ph">[CONFIRM: keep going at regular pricing, or walk away with everything
-                                learned.]</span></p>
-                    </details>
-                    <details name="faq">
-                        <summary>Do you work with my competitors?</summary>
-                        <p>Spots are limited per area, so I'm not working both sides of the same street. <span
-                                class="ph">[CONFIRM]</span></p>
-                    </details>
-                    <details name="faq">
-                        <summary>What if my old lead list is a mess?</summary>
-                        <p>That's normal. We'll clean it up.</p>
-                    </details>
-                </div>
-            </div>
-        </section>
-
-        <!-- ============ 10. BOOKING ============ -->
+        <!-- ============ 7. BOOKING ============ -->
         <section class="section cta-section" id="book" aria-labelledby="book-h">
             <div class="container">
                 <div class="cta cta-book">
@@ -398,44 +437,59 @@
                     </svg>
 
                     <div class="cta-copy">
-                        <h2 id="book-h">Grab a spot. Let's talk shop.</h2>
-                        <p>30 minutes. I'll look at where your leads are leaking and tell you straight if this is a
-                            fit.</p>
+                        <h2 id="book-h">Let's find out where leads might be slipping through the cracks.</h2>
+                        <p>A straightforward 30-minute conversation about how your company handles new leads today.
+                            With only three spots, it goes both ways: you see whether this makes sense for you, and I
+                            see whether I can really help your business. If it's not a fit, I'll tell you.</p>
+                    </div>
+
+                    <div class="cta-agenda">
+                        <p class="cta-agenda-head">On the call, we'll:</p>
+                        <ul class="cta-points">
+                            <li>Walk through how leads come in and who handles them</li>
+                            <li>Look for gaps in response time and follow-up</li>
+                            <li>Talk honestly about whether this would help</li>
+                            <li>Decide together whether your company is a good fit for one of the three spots</li>
+                        </ul>
                     </div>
 
                     <div class="cta-calendar">
-                        <!-- Calendar loads when this area gets close to the screen. Set CONFIG.calendar in pilot.js. -->
+                        <!-- Calendar loads when this area gets close to the screen. Set CONFIG.calendar.url in pilot.js.
+                             Until it's set, visitors see the email option below so the page still works. -->
                         <div class="calendar" data-calendar>
-                            <p class="calendar-placeholder ph" data-calendar-missing>[CALENDAR EMBED — set
-                                CONFIG.calendar.url in pilot.js]</p>
+                            <div class="calendar-missing" data-calendar-missing>
+                                <p class="calendar-missing-head">Pick a time by email</p>
+                                <p>Send a quick note with your name, company, and a couple of times that work. We'll
+                                    confirm within one business day.</p>
+                                <a class="btn btn-primary btn-lg" data-calendar-email
+                                    href="mailto:hello@godsofroofing.com?subject=Discovery%20call%20%E2%80%94%20founding%20partner%20program">Email
+                                    to book a call</a>
+                            </div>
                         </div>
-                        <p class="calendar-fallback">Calendar not loading? <a data-calendar-link href="#"
-                                target="_blank" rel="noopener">Open it in a new tab</a> or email <a
-                                href="mailto:hello@godsofroofing.com">hello@godsofroofing.com</a>.</p>
-
-                        <p class="calendar-note"><span data-cfg="spots">3</span> spots. When they're taken, that's it
-                            for this round.</p>
+                        <p class="calendar-fallback" data-calendar-fallback hidden>Calendar not loading? <a
+                                data-calendar-link href="#" target="_blank" rel="noopener">Open it in a new tab</a> or
+                            email <a href="mailto:hello@godsofroofing.com">hello@godsofroofing.com</a>.</p>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- ============ 11. FOOTER ============ -->
+    <!-- ============ FOOTER ============ -->
     <footer class="footer">
         <div class="container footer-base pilot-footer">
             <p>&copy; <span data-year>2026</span> Gods of Roofing</p>
             <nav class="pilot-footer-links" aria-label="Footer">
                 <a href="mailto:hello@godsofroofing.com">hello@godsofroofing.com</a>
                 <a href="https://godsofroofing.com/">godsofroofing.com</a>
-                <a href="#" data-privacy-link>Privacy policy</a>
+                <a href="#" data-privacy-link hidden>Privacy policy</a>
             </nav>
         </div>
     </footer>
 
-    <!-- Sticky CTA (phones only). Hides once the calendar is on screen. -->
-    <div class="sticky-cta" data-sticky-cta>
-        <a class="btn btn-primary btn-block" href="#book"><span>Grab a spot · <span data-cfg="price">$599</span></span></a>
+    <!-- Sticky CTA (phones and small tablets). Hidden while the hero button or the booking section is on screen. -->
+    <div class="sticky-cta is-hidden" data-sticky-cta>
+        <a class="btn btn-primary btn-block" href="#book">See if you're a good fit</a>
     </div>
 </body>
 

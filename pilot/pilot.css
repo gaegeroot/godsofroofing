@@ -1,49 +1,668 @@
 /* =========================================================
-   Gods of Roofing — Lead Leak Pilot page
-   Loaded AFTER ../styles.css. The page is built from the main
-   site's components (nav, hero, section heads, features, steps,
-   plan card, results, FAQ, CTA, footer) and its color tokens.
-   This file only adds what the main site has no component for.
+   Gods of Roofing — Founding Partner Program page
+   Loaded AFTER ../styles.css. Uses the main site's tokens and
+   components (nav, hero, pill, section heads, about, checks,
+   price, CTA, footer). This file adds only what this page needs.
    ========================================================= */
 
-/* Placeholders: obvious on purpose. Remove the class once real content is in. */
-.ph {
-    background: var(--gold-soft);
-    color: var(--gold-ink);
-    border: 1px dashed rgba(107, 78, 0, 0.45);
-    border-radius: 6px;
-    padding: 0 6px;
-    font-weight: 600;
+/* ---------- Nav ---------- */
+/* On phones the hero button, then the sticky bar, is always on screen, so the nav button steps aside */
+@media (max-width: 480px) {
+    .nav .btn {
+        display: none;
+    }
 }
 
 /* ---------- Hero ---------- */
 .pilot-hero {
-    padding-bottom: var(--section-y);
+    padding-bottom: clamp(56px, 8vw, 96px);
+}
+
+.pilot-hero-grid {
+    position: relative;
+    z-index: 1;
+    /* above the hero's bottom fade */
+    display: grid;
+    gap: 48px;
+    align-items: center;
 }
 
 .pilot-hero .hero-copy {
-    z-index: 1;
-    /* above the hero's bottom fade */
+    text-align: left;
+    align-items: flex-start;
 }
 
-@media (min-width: 641px) {
+.pilot-hero .pill b {
+    font-weight: 700;
+    color: var(--ink);
+}
+
+.pilot-hero h1 {
+    max-width: 15ch;
+    font-size: clamp(2.3rem, 5vw, 4.1rem);
+    line-height: 1.02;
+}
+
+/* each sentence starts its own line; the setup is quieter so the hit lands */
+.pilot-hero h1 span {
+    display: block;
+}
+
+/* Two lines, always: the font scales with the text column so each sentence fits on one line.
+   "Another roofer got the job." is ~11.9em wide at this font width; 12.3 leaves a little room.
+   If you change the headline, re-measure and update the divisor. */
+@supports (font-size: 1cqi) {
+    .pilot-hero .hero-copy {
+        container-type: inline-size;
+    }
+
     .pilot-hero h1 {
-        max-width: 17ch;
-        font-size: clamp(2.65rem, 5.6vw, 4.4rem);
+        max-width: none;
+        font-stretch: 100%;
+        font-size: min(4.25rem, 100cqi / 12.3);
+        line-height: 1.04;
+    }
+
+    .pilot-hero h1 span {
+        white-space: nowrap;
+    }
+
+    /* phones: a slightly narrower cut keeps two lines at a bigger size (~10.5em wide at 88%) */
+    @media (max-width: 640px) {
+        .pilot-hero h1 {
+            font-stretch: 88%;
+            font-size: calc(100cqi / 10.9);
+        }
     }
 }
 
-/* Video (click to load) */
+.pilot-hero .h1-setup {
+    color: var(--slate);
+}
+
+.pilot-hero .lede strong {
+    color: var(--ink);
+    font-weight: 650;
+}
+
+.pilot-hero .hero-ctas {
+    justify-content: flex-start;
+    margin-top: 24px;
+}
+
+/* "Only three" strip above the hero button */
+.hero-spots {
+    margin-top: 28px;
+    max-width: 560px;
+    padding: 16px 18px;
+    background: var(--white);
+    border: 1px solid var(--line-2);
+    border-left: 4px solid var(--gold);
+    border-radius: var(--r-md);
+}
+
+.hero-spots .slots {
+    max-width: 132px;
+    gap: 6px;
+}
+
+.hero-spots .slot {
+    height: 6px;
+}
+
+.hero-spots .slot.is-taken {
+    background: var(--line-2);
+}
+
+.hero-spots p {
+    margin-top: 10px;
+    font-size: 15.5px;
+    line-height: 1.5;
+    color: var(--slate);
+    text-wrap: pretty;
+}
+
+.hero-spots b {
+    color: var(--ink);
+    font-weight: 700;
+}
+
+.hero-spots-count {
+    color: var(--gold-ink);
+    font-weight: 650;
+    white-space: nowrap;
+}
+
+@media (min-width: 1025px) {
+    .pilot-hero-grid {
+        grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.6fr);
+        gap: 56px;
+    }
+}
+
+/* ---------- Phone conversation (illustration) ---------- */
+.convo {
+    margin: 0;
+    justify-self: center;
+    width: 100%;
+    max-width: 330px;
+}
+
+.phone {
+    background: var(--storm);
+    border-radius: 40px;
+    padding: 10px;
+    box-shadow: 0 40px 80px -32px rgba(18, 28, 46, 0.45), 0 0 0 1px rgba(18, 28, 46, 0.08);
+}
+
+.phone-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 16px 14px;
+    background: var(--white);
+    border-radius: 31px 31px 0 0;
+    border-bottom: 1px solid var(--line);
+    line-height: 1.25;
+}
+
+.phone-avatar {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--ink);
+}
+
+.phone-who b {
+    display: block;
+    font-size: 15px;
+    color: var(--ink);
+}
+
+.phone-who small {
+    font-size: 12.5px;
+    color: var(--muted);
+}
+
+.phone-thread {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 14px 14px 18px;
+    background: var(--paper);
+    border-radius: 0 0 31px 31px;
+}
+
+.msg-sys {
+    align-self: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted);
+}
+
+.msg {
+    max-width: 84%;
+    padding: 9px 13px;
+    border-radius: 18px;
+    font-size: 14.5px;
+    line-height: 1.4;
+}
+
+.msg-out {
+    align-self: flex-end;
+    background: var(--storm);
+    color: var(--white);
+    border-bottom-right-radius: 6px;
+}
+
+.msg-in {
+    align-self: flex-start;
+    background: var(--white);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    border-bottom-left-radius: 6px;
+}
+
+.msg-booked {
+    align-self: center;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 6px;
+    padding: 7px 14px 7px 10px;
+    border-radius: 999px;
+    background: var(--gold);
+    color: var(--ink);
+    font-size: 13.5px;
+    font-weight: 700;
+}
+
+.msg-booked svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* messages appear one after another, once */
+.phone-thread> :not(.msg-sys) {
+    animation: msg-in .45s cubic-bezier(.2, .7, .3, 1) both;
+}
+
+.phone-thread> :nth-child(2) { animation-delay: .4s; }
+.phone-thread> :nth-child(3) { animation-delay: 1.3s; }
+.phone-thread> :nth-child(4) { animation-delay: 2.1s; }
+.phone-thread> :nth-child(5) { animation-delay: 2.9s; }
+.phone-thread> :nth-child(6) { animation-delay: 3.6s; }
+
+@keyframes msg-in {
+    from {
+        opacity: 0;
+        transform: translateY(8px) scale(.98);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .phone-thread> * {
+        animation: none !important;
+    }
+}
+
+.convo figcaption {
+    margin-top: 14px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+}
+
+/* ---------- The problem ---------- */
+.moments {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 1040px;
+    margin-inline: auto;
+}
+
+.moment {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    padding: 24px 26px 28px;
+}
+
+.moment-alert {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 18px;
+    margin-bottom: 20px;
+    border-bottom: 1px dashed var(--line-2);
+    line-height: 1.3;
+}
+
+.moment-alert b {
+    display: block;
+    font-size: 14px;
+    font-weight: 650;
+    color: var(--ink);
+}
+
+.moment-alert small {
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.moment-icon {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: var(--paper);
+    color: var(--ink);
+}
+
+.moment-icon svg,
+.system-src svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.moment-icon-red {
+    background: #FBE7E3;
+    color: var(--red);
+}
+
+.moment h3 {
+    font-size: 20px;
+    text-wrap: balance;
+}
+
+.moment p:not(.moment-alert) {
+    margin-top: 10px;
+    color: var(--slate);
+    font-size: 16px;
+    text-wrap: pretty;
+}
+
+.moments-close {
+    max-width: 640px;
+    margin: clamp(40px, 5vw, 56px) auto 0;
+    text-align: center;
+    font-size: clamp(19px, 2vw, 22px);
+    line-height: 1.45;
+    color: var(--ink-2);
+    text-wrap: balance;
+}
+
+.moments-close strong {
+    color: var(--ink);
+    font-weight: 700;
+    box-shadow: inset 0 -0.38em 0 var(--gold-soft);
+}
+
+/* ---------- The method ---------- */
+.method {
+    display: grid;
+    gap: 48px;
+    align-items: center;
+}
+
+.method-copy {
+    max-width: 58ch;
+}
+
+/* same heading treatment as .section-head h2 */
+.method-copy h2 {
+    font-size: clamp(2rem, 4vw, 3.15rem);
+    font-weight: 750;
+    font-stretch: 110%;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    text-wrap: balance;
+}
+
+.method-copy p {
+    margin-top: 18px;
+    text-wrap: pretty;
+}
+
+.method-copy .method-lede {
+    margin-top: 16px;
+    color: var(--slate);
+    font-size: 18px;
+}
+
+.system {
+    width: 100%;
+    max-width: 460px;
+    justify-self: center;
+    padding: 24px;
+    border: 1px solid var(--line);
+    border-radius: var(--r-xl);
+    background: var(--paper);
+}
+
+.system-in {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    position: relative;
+    padding-bottom: 28px;
+}
+
+/* the two ways in merge into one line */
+.system-in::after {
+    content: "";
+    position: absolute;
+    left: 25%;
+    right: 25%;
+    bottom: 0;
+    height: 28px;
+    border: 2px solid var(--line-2);
+    border-top: 0;
+    border-radius: 0 0 14px 14px;
+}
+
+.system-src {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 12px;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.25;
+}
+
+.system-src svg {
+    flex: none;
+    color: var(--slate);
+}
+
+.system-steps {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding-top: 14px;
+}
+
+.system-steps::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    height: 14px;
+    width: 2px;
+    margin-left: -1px;
+    background: var(--line-2);
+}
+
+.system-steps li {
+    position: relative;
+    padding: 14px 18px;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    text-align: center;
+    line-height: 1.35;
+}
+
+.system-steps li+li::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: -15px;
+    height: 14px;
+    width: 2px;
+    margin-left: -1px;
+    background: var(--line-2);
+}
+
+.system-steps b {
+    display: block;
+    color: var(--ink);
+    font-weight: 680;
+}
+
+.system-steps small {
+    font-size: 14px;
+    color: var(--slate);
+}
+
+.system-steps .system-end {
+    background: var(--gold);
+    border-color: var(--gold);
+}
+
+.system-steps .system-end small {
+    color: var(--ink-2);
+}
+
+@media (min-width: 901px) {
+    .method {
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+        gap: 72px;
+    }
+}
+
+/* ---------- What we set up ---------- */
+.parts {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.part {
+    display: flex;
+    flex-direction: column;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    padding: 26px 24px 24px;
+}
+
+.part-num {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--storm);
+    color: var(--gold);
+    font-weight: 750;
+    font-stretch: 110%;
+    font-size: 16px;
+}
+
+.part h3 {
+    margin-top: 20px;
+    font-size: 19px;
+    text-wrap: balance;
+}
+
+.part p {
+    margin-top: 10px;
+    color: var(--slate);
+    font-size: 15.5px;
+    line-height: 1.55;
+    text-wrap: pretty;
+}
+
+.part .part-why {
+    margin-top: auto;
+    padding-top: 16px;
+    color: var(--ink);
+    font-weight: 600;
+    font-size: 15px;
+}
+
+/* keeps a gap above the "why" line in the tallest card */
+.part p:not(.part-why) {
+    margin-bottom: 18px;
+}
+
+.part-setup {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 24px 56px;
+    align-items: center;
+    padding: clamp(26px, 4vw, 40px);
+    background: var(--storm);
+    border-color: var(--storm);
+}
+
+.part-setup .part-num {
+    background: var(--gold);
+    color: var(--ink);
+}
+
+.part-setup h3 {
+    color: var(--white);
+    font-size: clamp(22px, 2.4vw, 26px);
+}
+
+.part-setup p {
+    color: #B4BFD1;
+    font-size: 16.5px;
+    margin-bottom: 0 !important;
+}
+
+.part-setup .checks {
+    margin-top: 0;
+}
+
+.part-setup .checks li {
+    color: #E3E8F1;
+    font-size: 16px;
+}
+
+.part-setup .checks li::before {
+    background-color: var(--gold);
+}
+
+@media (max-width: 1024px) {
+    .parts {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .parts {
+        grid-template-columns: 1fr;
+    }
+
+    .part-setup {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ---------- Who you'd work with ---------- */
+@media (min-width: 901px) {
+    .pilot-about {
+        grid-template-columns: minmax(0, 0.6fr) minmax(0, 1.4fr);
+        align-items: center;
+    }
+
+    .pilot-about .about-photo {
+        position: static;
+        max-width: 360px;
+    }
+}
+
+.pilot-about .about-photo img {
+    aspect-ratio: 1 / 1;
+}
+
+/* optional video (click to load) */
 .vsl {
     width: 100%;
-    max-width: 860px;
-    margin-top: clamp(32px, 5vw, 48px);
+    margin-top: 32px;
     aspect-ratio: 16 / 9;
     border-radius: var(--r-lg);
     overflow: hidden;
     background: var(--storm);
-    border: 1px solid var(--line);
-    box-shadow: 0 30px 80px -30px rgba(18, 28, 46, 0.35);
+}
+
+.vsl[hidden] {
+    display: none;
 }
 
 .vsl-play,
@@ -65,24 +684,15 @@
     object-fit: cover;
 }
 
-.vsl-placeholder {
-    position: absolute;
-    left: 50%;
-    bottom: 16px;
-    transform: translateX(-50%);
-    font-size: 13px;
-    white-space: nowrap;
-}
-
 .vsl-btn {
     position: absolute;
     left: 50%;
     top: 50%;
     display: grid;
     place-items: center;
-    width: 76px;
-    height: 76px;
-    margin: -38px 0 0 -38px;
+    width: 72px;
+    height: 72px;
+    margin: -36px 0 0 -36px;
     border-radius: 50%;
     background: var(--gold);
     color: var(--ink);
@@ -91,8 +701,8 @@
 }
 
 .vsl-btn svg {
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
     margin-left: 4px;
 }
 
@@ -100,18 +710,35 @@
     transform: scale(1.06);
 }
 
-/* ---------- The leak ---------- */
-.leak {
+/* ---------- The offer ---------- */
+.offer {
     display: grid;
-    gap: 40px;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+    gap: clamp(32px, 5vw, 64px);
+    align-items: start;
+    max-width: 1040px;
+    margin-inline: auto;
 }
 
-.leak-copy {
-    max-width: 62ch;
+@media (min-width: 901px) {
+
+    /* price card stays in view while the story beside it scrolls */
+    .offer-box {
+        position: sticky;
+        top: 100px;
+    }
 }
 
-/* same heading treatment as .section-head h2 / .about-copy h2 */
-.leak-copy h2 {
+.offer-eyebrow {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--gold-ink);
+}
+
+.offer-story h2 {
+    margin-top: 12px;
     font-size: clamp(2rem, 4vw, 3.15rem);
     font-weight: 750;
     font-stretch: 110%;
@@ -120,279 +747,200 @@
     text-wrap: balance;
 }
 
-.leak-copy p {
+.offer-story p {
     margin-top: 18px;
     text-wrap: pretty;
 }
 
-.leak-copy .leak-lede {
-    margin-top: 16px;
-    color: var(--slate);
-    font-size: 18px;
+.offer-story h3 {
+    margin-top: 32px;
+    font-size: 19px;
 }
 
-.pipe {
-    position: relative;
-    padding-left: 30px;
+.offer-story h3+p {
+    margin-top: 8px;
 }
 
-.pipe::before {
-    content: "";
-    position: absolute;
-    left: 7px;
-    top: 22px;
-    bottom: 22px;
-    width: 2px;
-    background: linear-gradient(to bottom, var(--line-2), var(--gold));
+.offer-box {
+    background: var(--storm);
+    color: #C2CCDC;
+    border-radius: var(--r-xl);
+    padding: clamp(26px, 4vw, 36px);
 }
 
-.pipe li {
-    position: relative;
+.slots {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 6px 12px;
-    padding: 13px 16px;
-    border: 1px solid var(--line);
-    border-radius: var(--r-md);
-    background: var(--white);
+    gap: 8px;
 }
 
-.pipe li+li {
-    margin-top: 10px;
-}
-
-.pipe li::before {
-    content: "";
-    position: absolute;
-    left: -30px;
-    top: 50%;
-    width: 16px;
-    height: 16px;
-    margin-top: -8px;
-    border-radius: 50%;
-    background: var(--white);
-    border: 2px solid var(--line-2);
-}
-
-.pipe b {
-    font-weight: 650;
-    color: var(--ink);
-}
-
-.drip {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    font-size: 13.5px;
-    font-weight: 600;
-    color: var(--red);
-}
-
-.drip::before {
-    content: "";
-    width: 8px;
+.slot {
+    width: 100%;
     height: 8px;
-    border-radius: 0 50% 50% 50%;
-    transform: rotate(45deg);
-    background: currentColor;
+    border-radius: 999px;
 }
 
-.pipe .pipe-end {
-    border-color: var(--gold);
-    background: var(--gold-soft);
-}
-
-.pipe .pipe-end::before {
+.slot.is-open {
     background: var(--gold);
-    border-color: var(--gold);
-    box-shadow: 0 0 0 4px var(--gold-soft);
 }
 
-/* ---------- Seven leaks (on the main site's .features grid) ---------- */
-.leaks .step-num {
-    width: 38px;
-    height: 38px;
-    font-size: 16px;
+.slot.is-taken {
+    background: rgba(255, 255, 255, 0.16);
 }
 
-/* Column layout so the "Plugs" line sits at the bottom of every card in a row */
-.leaks .feature {
-    display: flex;
-    flex-direction: column;
+.slots-label {
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #E3E8F1;
 }
 
-.leaks .step-num {
-    flex-shrink: 0;
-}
-
-/* Keeps a minimum gap above the divider in the tallest card */
-.leaks .feature p:not(.plug) {
-    margin-bottom: 14px;
-}
-
-.plug {
-    margin-top: auto !important;
-    padding-top: 12px;
-    border-top: 1px solid var(--line);
-    font-size: 14.5px !important;
-    color: var(--ink-2) !important;
-}
-
-.plug b {
-    color: var(--ink);
-    font-weight: 650;
-}
-
-.feature-cta {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 24px;
-    background: var(--gold-soft) !important;
-}
-
-.feature-cta h3 {
-    margin-top: 0 !important;
-    font-size: 22px !important;
-    font-weight: 720;
-    font-stretch: 108%;
-}
-
-.feature-cta .btn {
-    align-self: flex-start;
-}
-
-/* ---------- How the 30 days go (main .steps, four across) ---------- */
-.step-when {
-    margin-top: 22px;
-}
-
-.step .step-when+h3 {
-    margin-top: 12px;
-}
-
-@media (min-width: 1025px) {
-    .steps-4 {
-        grid-template-columns: repeat(4, 1fr);
-    }
-}
-
-@media (min-width: 901px) and (max-width: 1024px) {
-    .steps-4 {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .steps-4 .step::after {
-        display: none;
-    }
-}
-
-/* ---------- Price (main .plan-featured card) ---------- */
-.pilot-plan {
-    max-width: 580px;
-    margin-inline: auto;
-}
-
-.pilot-plan .plan-badge {
-    position: static;
-    align-self: flex-start;
-    margin-bottom: 20px;
-}
-
-.pilot-plan h2 {
-    font-size: 22px;
-    font-weight: 720;
-    font-stretch: 108%;
-    letter-spacing: -0.015em;
-    color: var(--white);
-}
-
-.pilot-plan .price {
+.offer-box .price {
+    margin-top: 26px;
     flex-wrap: wrap;
-    gap: 4px 12px;
+    gap: 4px 10px;
 }
 
-.pilot-plan .price-amount {
-    font-size: clamp(48px, 9vw, 64px);
+.offer-box .price-amount {
+    color: var(--white);
+    font-size: clamp(48px, 7vw, 60px);
 }
 
-.pilot-plan .price-per.ph {
-    font-size: 13px;
+.offer-box .price-per {
+    color: #A9B5C8;
+    font-size: 17px;
 }
 
-.pilot-plan-copy {
-    margin: 24px 0 28px;
+.offer-note {
+    margin: 10px 0 26px;
+    font-size: 15.5px;
+    color: #DCE3EE;
+}
+
+.offer-box .checks {
+    margin: 0 0 28px;
     padding-top: 22px;
     border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-.pilot-plan-copy p+p {
-    margin-top: 12px;
+.offer-box .checks li {
+    color: #E3E8F1;
+    font-size: 15.5px;
 }
 
-.pilot-plan-copy .pilot-plan-lead {
-    color: var(--white);
-    font-weight: 650;
+.offer-box .checks li::before {
+    background-color: var(--gold);
 }
 
-.pilot-plan-copy .pilot-plan-sig {
-    color: #8794AA;
-    font-size: 15px;
-}
-
-/* ---------- Fit ---------- */
-.fit .plan {
+/* "The math": one job vs. the price */
+.anchor {
+    margin-top: 24px;
+    padding: 20px 22px;
+    background: var(--white);
+    border: 1px solid var(--line);
     border-radius: var(--r-lg);
 }
 
-.checks-no li::before {
-    background: #FBE7E3 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='m7 7 6 6M13 7l-6 6' fill='none' stroke='%23C2412D' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") center / 20px no-repeat;
-}
-
-/* ---------- Proof ---------- */
-.result-empty {
-    grid-column: 1 / -1;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    min-height: 160px;
-    background: transparent;
-    border-style: dashed;
-    border-color: var(--line-2);
-}
-
-.result-empty-note {
-    margin-top: 12px;
-    font-size: 14px;
+.anchor-head {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
     color: var(--muted);
 }
 
-/* ---------- Booking (main .cta, single column with a calendar) ---------- */
+.anchor dl {
+    margin: 12px 0 0;
+}
+
+.anchor-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 0;
+}
+
+.anchor-row+.anchor-row {
+    border-top: 1px dashed var(--line-2);
+}
+
+.anchor-row dt {
+    color: var(--ink-2);
+    font-size: 16px;
+    line-height: 1.4;
+    text-wrap: balance;
+}
+
+.anchor-row dd {
+    margin: 0;
+    flex: none;
+    font-size: clamp(22px, 2.6vw, 28px);
+    font-weight: 780;
+    font-stretch: 110%;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+}
+
+.anchor-cost dd {
+    color: var(--slate);
+}
+
+.offer-story .anchor-note {
+    margin-top: 6px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--muted);
+}
+
+.offer-fine {
+    margin-top: 14px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #8794AA;
+}
+
+@media (max-width: 900px) {
+    .offer {
+        grid-template-columns: 1fr;
+        max-width: 600px;
+    }
+}
+
+/* ---------- Booking (main .cta, with an agenda and calendar) ---------- */
+/* The main site's .cta-section has no top padding; here it follows a gray section, so space it off. */
+.pilot .cta-section {
+    padding-top: clamp(56px, 8vw, 96px);
+}
+
 .cta-book {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    align-items: start;
 }
 
-.cta-book .cta-copy {
-    text-align: center;
+.cta-agenda {
+    position: relative;
 }
 
-.cta-book .cta-copy>p {
-    margin-inline: auto;
+.cta-agenda-head {
+    color: var(--white);
+    font-weight: 650;
+    margin-bottom: 16px;
+}
+
+.cta-book .cta-points {
+    margin-top: 0;
 }
 
 .cta-calendar {
     position: relative;
+    grid-column: 1 / -1;
 }
 
 .calendar {
-    min-height: 680px;
     border-radius: var(--r-lg);
     overflow: hidden;
     background: var(--white);
-    display: grid;
-    place-items: center;
 }
 
 .calendar iframe {
@@ -402,17 +950,31 @@
     border: 0;
 }
 
-.calendar.is-loaded {
-    display: block;
-}
-
-.calendar-placeholder {
-    margin: 24px;
+.calendar-missing {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: clamp(28px, 5vw, 48px) 24px;
     text-align: center;
+    color: var(--slate);
 }
 
-.calendar-fallback,
-.calendar-note {
+.calendar-missing p {
+    max-width: 440px;
+}
+
+.calendar-missing .calendar-missing-head {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--ink);
+}
+
+.calendar-missing .btn {
+    margin-top: 8px;
+}
+
+.calendar-fallback {
     margin-top: 14px;
     text-align: center;
     font-size: 14.5px;
@@ -424,8 +986,20 @@
     text-underline-offset: 3px;
 }
 
-.calendar-note {
-    color: #8794AA;
+@media (max-width: 900px) {
+    .cta-book {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .calendar-missing .btn {
+        width: 100%;
+        white-space: normal;
+        height: auto;
+        min-height: 54px;
+        padding-block: 12px;
+    }
 }
 
 /* ---------- Footer ---------- */
@@ -444,6 +1018,10 @@
     display: inline-flex;
     align-items: center;
     min-height: 44px;
+}
+
+.pilot-footer-links a[hidden] {
+    display: none;
 }
 
 /* ---------- Sticky CTA (phones and small tablets) ---------- */
@@ -477,10 +1055,37 @@
     .sticky-cta {
         display: none;
     }
+}
 
-    .leak {
-        grid-template-columns: 1fr 1fr;
-        gap: 64px;
-        align-items: center;
+/* ---------- Small phones ---------- */
+@media (max-width: 440px) {
+    .pilot-hero .pill {
+        font-size: 13px;
+        padding: 6px 12px 6px 10px;
+        gap: 8px;
+    }
+}
+
+@media (max-width: 380px) {
+    .pilot-hero .pill {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 640px) {
+    .pilot-hero-grid {
+        gap: 40px;
+    }
+
+    .moments {
+        grid-template-columns: 1fr;
+    }
+
+    .moment {
+        padding: 20px 20px 24px;
+    }
+
+    .system {
+        padding: 16px;
     }
 }
