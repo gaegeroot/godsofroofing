@@ -2260,8 +2260,27 @@ h3 {
         font-size: 16px;
     }
 
+    .hero {
+        padding-top: 32px;
+    }
+
     .hero h1 {
-        font-size: clamp(2.3rem, 10.5vw, 2.8rem);
+        /* keep each line of the headline on one row so the video stays near the fold */
+        margin-top: 20px;
+        font-size: clamp(1.85rem, 8.4vw, 2.3rem);
+        line-height: 1.05;
+    }
+
+    .lede {
+        margin-top: 16px;
+    }
+
+    .hero-ctas {
+        margin-top: 24px;
+    }
+
+    .hero-video {
+        margin-top: 28px;
     }
 
     .hero-ctas {
