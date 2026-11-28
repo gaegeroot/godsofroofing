@@ -12,6 +12,10 @@
          the script runs, so keep it roughly in sync if you change CONFIG.
          The <title> and meta tags can't be set from CONFIG for link
          previews (Facebook reads the raw HTML), so edit them here too.
+
+         STYLES: this page uses the main site's stylesheet (../styles.css)
+         and its components. pilot.css only adds the few pieces the main
+         site doesn't have (video, leak pipe, calendar, sticky phone CTA).
          =================================================================== -->
     <title>Lead Leak Pilot | Gods of Roofing</title>
     <meta name="description"
@@ -34,42 +38,55 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="pilot.css">
     <script src="pilot.js" defer></script>
 </head>
 
-<body>
+<body class="pilot">
     <a class="skip-link" href="#main">Skip to content</a>
 
-    <header class="topbar">
-        <div class="wrap topbar-inner">
+    <!-- ============ NAV ============ -->
+    <header class="nav">
+        <div class="container nav-inner">
             <a class="brand" href="https://godsofroofing.com/" aria-label="Gods of Roofing home">
                 <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
-                    <rect width="32" height="32" rx="8" fill="#FFFFFF" fill-opacity="0.08" />
-                    <path d="M5 18 16 8l11 10" fill="none" stroke="#FFFFFF" stroke-width="2.6"
-                        stroke-linecap="round" stroke-linejoin="round" />
+                    <rect width="32" height="32" rx="8" fill="currentColor" />
+                    <path d="M5 18 16 8l11 10" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"
+                        stroke-linejoin="round" />
                     <path d="M17.6 12.5 13 19.2h3.2l-1.3 6 5-7.6h-3.2z" fill="#F2B705" />
                 </svg>
-                <span>Gods of Roofing</span>
+                <span class="brand-name">Gods of Roofing</span>
             </a>
-            <a class="topbar-cta" href="#book" data-scroll-book>Book a call</a>
+            <a class="btn btn-primary btn-sm" href="#book">Book a call</a>
         </div>
     </header>
 
     <main id="main">
 
         <!-- ============ 1. HERO ============ -->
-        <section class="hero">
-            <div class="wrap hero-inner">
-                <p class="eyebrow"><span class="dot" aria-hidden="true"></span>For roofing contractors · <span
-                        data-cfg="spots">3</span> spots</p>
+        <section class="hero pilot-hero">
+            <svg class="hero-gables" viewBox="0 0 1200 520" preserveAspectRatio="xMidYMin slice" aria-hidden="true">
+                <g fill="none" stroke="currentColor" stroke-width="1">
+                    <path d="M-100 520 600 40l700 480" />
+                    <path d="M-100 580 600 100l700 480" />
+                    <path d="M-100 640 600 160l700 480" />
+                    <path d="M-100 700 600 220l700 480" />
+                    <path d="M-100 760 600 280l700 480" />
+                    <path d="M-100 820 600 340l700 480" />
+                </g>
+            </svg>
+
+            <div class="container hero-copy">
+                <p class="pill"><span class="pill-dot" aria-hidden="true"></span><span>For roofing contractors · <span
+                        data-cfg="spots">3</span>&nbsp;spots</span></p>
 
                 <h1>You don't have a lead problem. You've got a leaky bucket.</h1>
                 <!-- Alternate headlines:
                      <h1>Stop paying for leads that slip out the bottom.</h1>
                      <h1>Plug the leaks before you buy more leads.</h1> -->
 
-                <p class="sub">In <span data-cfg="pilotLength">30</span> days we plug the holes between "new lead" and
+                <p class="lede">In <span data-cfg="pilotLength">30</span> days we plug the holes between "new lead" and
                     "signed roof." <span data-cfg="spots">3</span> roofing companies. <span
                         data-cfg="price">$599</span>.</p>
 
@@ -87,19 +104,21 @@
                     </button>
                 </div>
 
-                <a class="btn btn-primary btn-lg" href="#book" data-scroll-book>Grab one of the <span
-                        data-cfg="spots">3</span> spots</a>
-                <p class="note">Pick a time at the bottom of the page. 30 minutes, no pressure.</p>
+                <div class="hero-ctas">
+                    <a class="btn btn-primary btn-lg" href="#book"><span>Grab one of the <span data-cfg="spots">3</span>
+                        spots</span></a>
+                </div>
+                <p class="hero-note">Pick a time at the bottom of the page. 30 minutes, no pressure.</p>
             </div>
         </section>
 
         <!-- ============ 2. THE LEAK ============ -->
         <section class="section" aria-labelledby="leak-h">
-            <div class="wrap leak">
+            <div class="container leak">
                 <div class="leak-copy">
                     <h2 id="leak-h">Where the money goes</h2>
-                    <p>A form comes in while everybody's up on a roof. A call hits voicemail during storm week. Somebody
-                        gets a quote and just goes quiet.</p>
+                    <p class="leak-lede">A form comes in while everybody's up on a roof. A call hits voicemail during
+                        storm week. Somebody gets a quote and just goes quiet.</p>
                     <p>Every one of those is money you already spent, leaking out the bottom of the bucket. And nobody
                         notices, because new leads keep pouring in the top.</p>
                 </div>
@@ -116,61 +135,66 @@
         </section>
 
         <!-- ============ 3. WHAT'S INCLUDED ============ -->
-        <section class="section section-alt" aria-labelledby="inc-h">
-            <div class="wrap">
-                <header class="head">
+        <section class="section section-paper" aria-labelledby="inc-h">
+            <div class="container">
+                <header class="section-head">
                     <h2 id="inc-h">Seven leaks we plug</h2>
                     <p>Everything below is set up and running inside the first week.</p>
                 </header>
 
-                <ul class="cards">
-                    <li class="card">
-                        <span class="card-num">01</span>
+                <ul class="features leaks">
+                    <li class="feature">
+                        <span class="step-num">1</span>
                         <h3>2-minute response</h3>
                         <p>Every web form and every missed call to the office gets a text and an email back inside 2
                             minutes.</p>
-                        <p class="plug"><span>Plugs:</span> the homeowner calling the next roofer on the list.</p>
+                        <p class="plug"><b>Plugs:</b> the homeowner calling the next roofer on the list.</p>
                     </li>
-                    <li class="card">
-                        <span class="card-num">02</span>
+                    <li class="feature">
+                        <span class="step-num">2</span>
                         <h3>Instant team alert</h3>
                         <p>The lead pings everyone who should know, with a tap-to-call button. Whoever's free calls
                             back.</p>
-                        <p class="plug"><span>Plugs:</span> a lead sitting in somebody's inbox.</p>
+                        <p class="plug"><b>Plugs:</b> a lead sitting in somebody's inbox.</p>
                     </li>
-                    <li class="card">
-                        <span class="card-num">03</span>
+                    <li class="feature">
+                        <span class="step-num">3</span>
                         <h3>48-hour education emails</h3>
                         <p>An email every 4 hours for 2 days walking the homeowner through how the process works, so
                             they trust you before you show up.</p>
-                        <p class="plug"><span>Plugs:</span> leads going cold or shopping around.</p>
+                        <p class="plug"><b>Plugs:</b> leads going cold or shopping around.</p>
                     </li>
-                    <li class="card">
-                        <span class="card-num">04</span>
+                    <li class="feature">
+                        <span class="step-num">4</span>
                         <h3>A real piece of mail</h3>
                         <p>A mailer lands at the lead's house. Something they can hold, stick on the fridge, hand to
                             their spouse.</p>
-                        <p class="plug"><span>Plugs:</span> getting buried in a crowded inbox. Most roofers don't do
+                        <p class="plug"><b>Plugs:</b> getting buried in a crowded inbox. Most roofers don't do
                             this.</p>
                     </li>
-                    <li class="card">
-                        <span class="card-num">05</span>
+                    <li class="feature">
+                        <span class="step-num">5</span>
                         <h3>Dead lead reactivation</h3>
                         <p>A text and email campaign to the old leads sitting in your system.</p>
-                        <p class="plug"><span>Plugs:</span> leads you already paid for and gave up on.</p>
+                        <p class="plug"><b>Plugs:</b> leads you already paid for and gave up on.</p>
                     </li>
-                    <li class="card">
-                        <span class="card-num">06</span>
+                    <li class="feature">
+                        <span class="step-num">6</span>
                         <h3>First-call audit</h3>
                         <p>For 30 days we review your first-contact calls, then hand you a report on what to tighten
                             up.</p>
-                        <p class="plug"><span>Plugs:</span> jobs lost in the first two minutes on the phone.</p>
+                        <p class="plug"><b>Plugs:</b> jobs lost in the first two minutes on the phone.</p>
                     </li>
-                    <li class="card">
-                        <span class="card-num">07</span>
+                    <li class="feature">
+                        <span class="step-num">7</span>
                         <h3>Weekly report</h3>
                         <p>Every week: how fast leads got contacted and what's converting better than before.</p>
-                        <p class="plug"><span>Plugs:</span> guessing what's working.</p>
+                        <p class="plug"><b>Plugs:</b> guessing what's working.</p>
+                    </li>
+                    <!-- Fills the 8th cell of the grid so it isn't left empty -->
+                    <li class="feature feature-cta">
+                        <h3>All seven, live inside week one.</h3>
+                        <a class="btn btn-primary" href="#book">Grab a spot</a>
                     </li>
                 </ul>
             </div>
@@ -179,83 +203,79 @@
         <!-- ============ 4. HOW IT WORKS ============ -->
         <!-- [CONFIRM or adjust these steps] -->
         <section class="section" aria-labelledby="how-h">
-            <div class="wrap narrow">
-                <header class="head">
+            <div class="container">
+                <header class="section-head">
                     <h2 id="how-h">How the <span data-cfg="pilotLength">30</span> days go</h2>
                 </header>
-                <ol class="timeline">
-                    <li>
-                        <span class="when">Week 1</span>
-                        <div>
-                            <h3>Set it up</h3>
-                            <p>Quick call. We connect your forms and phone line and write your messages.</p>
-                        </div>
+                <ol class="steps steps-4">
+                    <li class="step">
+                        <span class="step-num">1</span>
+                        <span class="tag tag-gold step-when">Week 1</span>
+                        <h3>Set it up</h3>
+                        <p>Quick call. We connect your forms and phone line and write your messages.</p>
                     </li>
-                    <li>
-                        <span class="when">Weeks 1–4</span>
-                        <div>
-                            <h3>Let it run</h3>
-                            <p>Everything's live. Reactivation goes out to your old leads. The first-call audit is
-                                underway.</p>
-                        </div>
+                    <li class="step">
+                        <span class="step-num">2</span>
+                        <span class="tag tag-gold step-when">Weeks 1–4</span>
+                        <h3>Let it run</h3>
+                        <p>Everything's live. Reactivation goes out to your old leads. The first-call audit is
+                            underway.</p>
                     </li>
-                    <li>
-                        <span class="when">Every week</span>
-                        <div>
-                            <h3>Your report</h3>
-                            <p>What came in, how fast it got answered, and what moved.</p>
-                        </div>
+                    <li class="step">
+                        <span class="step-num">3</span>
+                        <span class="tag tag-gold step-when">Every week</span>
+                        <h3>Your report</h3>
+                        <p>What came in, how fast it got answered, and what moved.</p>
                     </li>
-                    <li>
-                        <span class="when">Day <span data-cfg="pilotLength">30</span></span>
-                        <div>
-                            <h3>The straight talk</h3>
-                            <p>Your call audit report, and an honest conversation about what changed.</p>
-                        </div>
+                    <li class="step">
+                        <span class="step-num">4</span>
+                        <span class="tag tag-gold step-when">Day <span data-cfg="pilotLength">30</span></span>
+                        <h3>The straight talk</h3>
+                        <p>Your call audit report, and an honest conversation about what changed.</p>
                     </li>
                 </ol>
             </div>
         </section>
 
         <!-- ============ 5. PRICE ============ -->
-        <section class="section section-alt" aria-labelledby="price-h">
-            <div class="wrap narrow">
-                <div class="price-card">
-                    <h2 id="price-h" class="price-label" data-cfg="offerName">Lead Leak Pilot</h2>
-                    <p class="price"><span data-cfg="price">$599</span> <span class="price-term ph"
-                            data-cfg="priceTerm">[ONE-TIME / PER MONTH]</span></p>
-                    <p class="spots"><span data-cfg="spotsRemaining">3</span> of <span data-cfg="spots">3</span> spots
-                        open</p>
-                    <div class="price-copy">
-                        <p>That's not what this will cost later.</p>
+        <section class="section section-paper" aria-labelledby="price-h">
+            <div class="container">
+                <article class="plan plan-featured pilot-plan">
+                    <span class="plan-badge"><span data-cfg="spotsRemaining">3</span> of <span
+                            data-cfg="spots">3</span> spots open</span>
+                    <h2 id="price-h" data-cfg="offerName">Lead Leak Pilot</h2>
+                    <p class="price"><span class="price-amount" data-cfg="price">$599</span><span
+                            class="price-per ph" data-cfg="priceTerm">[ONE-TIME / PER MONTH]</span></p>
+                    <div class="pilot-plan-copy">
+                        <p class="pilot-plan-lead">That's not what this will cost later.</p>
                         <p>I'm keeping it low for <span data-cfg="spots">3</span> roofing companies because I need real
                             numbers to show the next guy. If it works, I get to share your results, with your
                             permission. That's the deal.</p>
-                        <p class="sig">Gaege, founder</p>
+                        <p class="pilot-plan-sig">Gaege, founder</p>
                     </div>
-                    <a class="btn btn-primary btn-lg btn-block" href="#book" data-scroll-book>Grab a spot</a>
-                </div>
+                    <a class="btn btn-primary btn-lg btn-block" href="#book">Grab a spot</a>
+                </article>
             </div>
         </section>
 
         <!-- ============ 6. FIT ============ -->
         <section class="section" aria-labelledby="fit-h">
-            <div class="wrap">
-                <header class="head">
+            <div class="container">
+                <header class="section-head">
                     <h2 id="fit-h">Is this you?</h2>
                 </header>
-                <div class="fit">
-                    <div class="fit-col fit-yes">
+                <div class="results fit">
+                    <div class="plan">
                         <h3>Good fit</h3>
-                        <ul>
+                        <ul class="checks">
                             <li>You're already getting leads from ads, search, or referrals.</li>
                             <li>Your office misses calls when it gets busy.</li>
                             <li>You want to see the numbers, good or bad.</li>
                         </ul>
                     </div>
-                    <div class="fit-col fit-no">
+                    <div class="plan">
                         <h3>Not a fit</h3>
-                        <ul>
+                        <ul class="checks checks-no">
                             <li>You don't have lead flow yet.</li>
                             <li>Nobody's going to answer the leads that come back to life.</li>
                         </ul>
@@ -266,31 +286,43 @@
 
         <!-- ============ 7. PROOF ============ -->
         <!-- Testimonials copied word for word from godsofroofing.com. Don't edit the wording. -->
-        <section class="section section-alt" aria-labelledby="proof-h">
-            <div class="wrap">
-                <header class="head">
+        <section class="section section-paper" aria-labelledby="proof-h">
+            <div class="container">
+                <header class="section-head">
                     <h2 id="proof-h">What people say</h2>
                 </header>
-                <div class="proof">
-                    <figure class="quote">
-                        <p class="quote-stat"><b>+87%</b> appointment booking speed</p>
+                <div class="results">
+                    <figure class="result">
+                        <div class="result-stat">
+                            <span class="result-num">+87%</span>
+                            <span class="result-label">Appointment booking speed</span>
+                        </div>
                         <blockquote>Gaege once again supported our automation system despite having tricky platforms
                             to work with found a solution for every problem we encountered and delivered top quality
                             work. Definitely recommend!</blockquote>
-                        <figcaption><b>James F.</b> Owner, Vista View Properties</figcaption>
+                        <figcaption>
+                            <span class="av av-lg">JF</span>
+                            <span><b>James F.</b><small>Owner, Vista View Properties</small></span>
+                        </figcaption>
                     </figure>
-                    <figure class="quote">
-                        <p class="quote-stat"><b>+94%</b> info request conversions</p>
+                    <figure class="result">
+                        <div class="result-stat">
+                            <span class="result-num">+94%</span>
+                            <span class="result-label">Info request conversions</span>
+                        </div>
                         <blockquote>Gaege delivered a complete automation system exactly as promised , and explained
                             the process clearly. The final setup is running smoothly and met the scope we agreed on.
                             Professional communication and timely delivery. Recommended for anyone wanting to have a
                             real pro working with them, I will definitely work with him on any future projects
                         </blockquote>
-                        <figcaption><b>Edwin B.</b> Roofing Company Owner</figcaption>
+                        <figcaption>
+                            <span class="av av-lg">EB</span>
+                            <span><b>Edwin B.</b><small>Roofing Company Owner</small></span>
+                        </figcaption>
                     </figure>
-                    <figure class="quote quote-empty">
+                    <figure class="result result-empty">
                         <p class="ph">[PILOT CASE STUDY — coming soon]</p>
-                        <p class="quote-empty-note">This spot's for one of the three pilot companies.</p>
+                        <p class="result-empty-note">This spot's for one of the three pilot companies.</p>
                     </figure>
                 </div>
             </div>
@@ -300,22 +332,24 @@
         <!-- [GUARANTEE — Gaege to decide whether to offer one, e.g. a refund condition.
              Uncomment once confirmed.]
         <section class="section" aria-labelledby="guarantee-h">
-            <div class="wrap narrow">
-                <div class="guarantee">
+            <div class="container">
+                <header class="section-head">
                     <h2 id="guarantee-h">[GUARANTEE HEADLINE]</h2>
                     <p>[GUARANTEE TERMS]</p>
-                </div>
+                </header>
             </div>
         </section>
         -->
 
         <!-- ============ 9. FAQ ============ -->
         <section class="section" aria-labelledby="faq-h">
-            <div class="wrap narrow">
-                <header class="head">
+            <div class="container faq-wrap">
+                <div class="faq-intro">
                     <h2 id="faq-h">Fair questions</h2>
-                </header>
-                <div class="faq">
+                    <p>Don't see yours? Ask on the call and I'll give you a straight answer.</p>
+                    <a class="btn btn-outline" href="#book">Book a call</a>
+                </div>
+                <div class="faq-list">
                     <details name="faq">
                         <summary>Why so cheap?</summary>
                         <p>Because I'm building case studies. <span data-cfg="price">$599</span> covers the setup. In
@@ -332,9 +366,9 @@
                             answer the leads that get booked. <span class="ph">[CONFIRM]</span></p>
                     </details>
                     <details name="faq">
-                        <summary>What happens after <span data-cfg="pilotLength">30</span> days?</summary>
-                        <p class="ph">[CONFIRM: keep going at regular pricing, or walk away with everything learned.]
-                        </p>
+                        <summary><span>What happens after <span data-cfg="pilotLength">30</span> days?</span></summary>
+                        <p><span class="ph">[CONFIRM: keep going at regular pricing, or walk away with everything
+                                learned.]</span></p>
                     </details>
                     <details name="faq">
                         <summary>Do you work with my competitors?</summary>
@@ -350,33 +384,48 @@
         </section>
 
         <!-- ============ 10. BOOKING ============ -->
-        <section class="section section-book" id="book" aria-labelledby="book-h">
-            <div class="wrap narrow">
-                <header class="head">
-                    <h2 id="book-h">Grab a spot. Let's talk shop.</h2>
-                    <p>30 minutes. I'll look at where your leads are leaking and tell you straight if this is a fit.</p>
-                </header>
+        <section class="section cta-section" id="book" aria-labelledby="book-h">
+            <div class="container">
+                <div class="cta cta-book">
+                    <svg class="cta-gables" viewBox="0 0 600 400" preserveAspectRatio="xMinYMax slice"
+                        aria-hidden="true">
+                        <g fill="none" stroke="currentColor" stroke-width="1">
+                            <path d="M-60 400 240 140l300 260" />
+                            <path d="M-60 440 240 180l300 260" />
+                            <path d="M-60 480 240 220l300 260" />
+                            <path d="M-60 520 240 260l300 260" />
+                        </g>
+                    </svg>
 
-                <!-- Calendar loads when this area gets close to the screen. Set CONFIG.calendar in pilot.js. -->
-                <div class="calendar" data-calendar>
-                    <p class="calendar-placeholder ph" data-calendar-missing>[CALENDAR EMBED — set CONFIG.calendar.url
-                        in pilot.js]</p>
+                    <div class="cta-copy">
+                        <h2 id="book-h">Grab a spot. Let's talk shop.</h2>
+                        <p>30 minutes. I'll look at where your leads are leaking and tell you straight if this is a
+                            fit.</p>
+                    </div>
+
+                    <div class="cta-calendar">
+                        <!-- Calendar loads when this area gets close to the screen. Set CONFIG.calendar in pilot.js. -->
+                        <div class="calendar" data-calendar>
+                            <p class="calendar-placeholder ph" data-calendar-missing>[CALENDAR EMBED — set
+                                CONFIG.calendar.url in pilot.js]</p>
+                        </div>
+                        <p class="calendar-fallback">Calendar not loading? <a data-calendar-link href="#"
+                                target="_blank" rel="noopener">Open it in a new tab</a> or email <a
+                                href="mailto:hello@godsofroofing.com">hello@godsofroofing.com</a>.</p>
+
+                        <p class="calendar-note"><span data-cfg="spots">3</span> spots. When they're taken, that's it
+                            for this round.</p>
+                    </div>
                 </div>
-                <p class="calendar-fallback">Calendar not loading? <a data-calendar-link href="#" target="_blank"
-                        rel="noopener">Open it in a new tab</a> or email <a
-                        href="mailto:hello@godsofroofing.com">hello@godsofroofing.com</a>.</p>
-
-                <p class="note note-center"><span data-cfg="spots">3</span> spots. When they're taken, that's it for
-                    this round.</p>
             </div>
         </section>
     </main>
 
     <!-- ============ 11. FOOTER ============ -->
     <footer class="footer">
-        <div class="wrap footer-inner">
+        <div class="container footer-base pilot-footer">
             <p>&copy; <span data-year>2026</span> Gods of Roofing</p>
-            <nav aria-label="Footer">
+            <nav class="pilot-footer-links" aria-label="Footer">
                 <a href="mailto:hello@godsofroofing.com">hello@godsofroofing.com</a>
                 <a href="https://godsofroofing.com/">godsofroofing.com</a>
                 <a href="#" data-privacy-link>Privacy policy</a>
@@ -386,8 +435,7 @@
 
     <!-- Sticky CTA (phones only). Hides once the calendar is on screen. -->
     <div class="sticky-cta" data-sticky-cta>
-        <a class="btn btn-primary btn-block" href="#book" data-scroll-book>Grab a spot · <span
-                data-cfg="price">$599</span></a>
+        <a class="btn btn-primary btn-block" href="#book"><span>Grab a spot · <span data-cfg="price">$599</span></span></a>
     </div>
 </body>
 

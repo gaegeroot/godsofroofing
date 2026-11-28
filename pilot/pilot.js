@@ -169,6 +169,14 @@ const CONFIG = {
         }
     });
 
+    /* ---------- Nav: border on scroll (same as the main site) ---------- */
+    const nav = document.querySelector(".nav");
+    if (nav) {
+        const onScroll = () => nav.classList.toggle("is-scrolled", window.scrollY > 8);
+        onScroll();
+        window.addEventListener("scroll", onScroll, { passive: true });
+    }
+
     /* ---------- Sticky CTA: hide once the booking section is on screen ---------- */
     const sticky = document.querySelector("[data-sticky-cta]");
     const book = document.getElementById("book");
@@ -179,7 +187,7 @@ const CONFIG = {
     }
 
     /* ---------- FAQ: one open at a time (for browsers without <details name>) ---------- */
-    const faqs = Array.from(document.querySelectorAll(".faq details"));
+    const faqs = Array.from(document.querySelectorAll(".faq-list details"));
     faqs.forEach((d) => d.addEventListener("toggle", () => {
         if (d.open) faqs.forEach((o) => { if (o !== d) o.open = false; });
     }));
