@@ -56,23 +56,77 @@
     });
 
     /* ---------- Pricing: monthly / annual ---------- */
+    // Skipped when the pricing section is absent (it's currently commented out in index.html).
     const pricing = document.getElementById("pricing");
     const billingSwitch = document.querySelector("[data-billing]");
 
-    const setPeriod = (period) => {
-        pricing.dataset.period = period;
-        billingSwitch.setAttribute("aria-checked", String(period === "annual"));
-        pricing.querySelectorAll("[data-monthly][data-annual]").forEach((el) => {
-            el.textContent = el.dataset[period];
-        });
-    };
+    if (pricing && billingSwitch) {
+        const setPeriod = (period) => {
+            pricing.dataset.period = period;
+            billingSwitch.setAttribute("aria-checked", String(period === "annual"));
+            pricing.querySelectorAll("[data-monthly][data-annual]").forEach((el) => {
+                el.textContent = el.dataset[period];
+            });
+        };
 
-    billingSwitch.addEventListener("click", () => {
-        setPeriod(pricing.dataset.period === "annual" ? "monthly" : "annual");
-    });
-    pricing.querySelectorAll(".billing-opt").forEach((opt) => {
-        opt.addEventListener("click", () => setPeriod(opt.dataset.for));
-    });
+        billingSwitch.addEventListener("click", () => {
+            setPeriod(pricing.dataset.period === "annual" ? "monthly" : "annual");
+        });
+        pricing.querySelectorAll(".billing-opt").forEach((opt) => {
+            opt.addEventListener("click", () => setPeriod(opt.dataset.for));
+        });
+    }
+
+    /* ---------- Hero intro video ---------- */
+    // Picks the vertical cut on desktop and the horizontal cut below 1025px, swapping (and keeping
+    // the playback position) if the viewport crosses that line. Hides itself if a file is missing.
+    const heroVideo = document.querySelector("[data-hero-video]");
+    if (heroVideo) {
+        const grid = heroVideo.closest(".hero-grid");
+        const video = heroVideo.querySelector("video");
+        const soundBtn = heroVideo.querySelector("[data-video-sound]");
+        const desktop = window.matchMedia("(min-width: 1025px)");
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+        const loadCut = () => {
+            const cut = desktop.matches ? "vertical" : "horizontal";
+            if (video.dataset.cut === cut) return;
+
+            // First load: autoplay muted unless the visitor prefers reduced motion.
+            // Later swaps: keep playing only if it was already playing.
+            const isSwap = Boolean(video.dataset.cut);
+            const shouldPlay = isSwap ? !video.paused : !reduceMotion.matches;
+            const resumeAt = isSwap ? video.currentTime : 0;
+
+            heroVideo.hidden = false;
+            grid.classList.add("has-video");
+            video.dataset.cut = cut;
+            video.poster = cut === "vertical" ? video.dataset.posterVertical : video.dataset.posterHorizontal;
+            video.src = video.dataset[cut];
+            video.addEventListener("loadedmetadata", () => {
+                if (resumeAt) video.currentTime = resumeAt;
+                if (shouldPlay) video.play().catch(() => { /* autoplay blocked; poster + button remain */ });
+            }, { once: true });
+        };
+
+        video.addEventListener("error", () => {
+            heroVideo.hidden = true;
+            grid.classList.remove("has-video");
+        });
+
+        soundBtn.addEventListener("click", () => {
+            video.muted = false;
+            video.loop = false;
+            video.controls = true;
+            video.currentTime = 0;
+            video.play().catch(() => {});
+            soundBtn.hidden = true;
+            video.focus();
+        });
+
+        desktop.addEventListener("change", loadCut);
+        loadCut();
+    }
 
     /* ---------- FAQ: one open at a time (fallback for browsers without <details name>) ---------- */
     const faqs = Array.from(document.querySelectorAll(".faq-list details"));

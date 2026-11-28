@@ -42,7 +42,7 @@
                 <a href="#services">Services</a>
                 <a href="#process">How it works</a>
                 <a href="#results">Results</a>
-                <a href="#pricing">Pricing</a>
+                <a href="#about">About</a>
                 <a href="#faq">FAQ</a>
                 <a class="btn btn-primary nav-menu-cta" href="#contact">Book a strategy call</a>
             </nav>
@@ -71,7 +71,8 @@
                 </g>
             </svg>
 
-            <div class="container hero-copy">
+            <div class="container hero-grid">
+            <div class="hero-copy">
                 <p class="pill"><span class="pill-dot" aria-hidden="true"></span>Built only for roofing contractors</p>
                 <h1>More signed roofs.<br>Fewer <span class="nowrap">tire&#8209;kickers.</span></h1>
                 <p class="lede">Gods of Roofing is the growth partner for roofing contractors. We build and run the ads,
@@ -82,6 +83,37 @@
                     <a class="btn btn-ghost btn-lg" href="#services">See what we do</a>
                 </div>
                 <p class="hero-note">Free 30-minute call. No obligation.</p>
+            </div>
+
+            <!--
+                Intro video: one script, two cuts.
+                  videos/intro-vertical.mp4    9:16, shown beside the copy on desktop (1025px and up)
+                  videos/intro-horizontal.mp4  16:9, shown below the copy on tablet and phone
+                  videos/intro-vertical.jpg / intro-horizontal.jpg  optional poster frames
+                  videos/intro.vtt             optional captions (shared by both cuts, since the script is the same)
+                The video starts muted (browsers block autoplay with sound); "Watch with sound" restarts it with audio.
+                If the video files are missing, this block removes itself and the hero looks exactly as before.
+            -->
+            <figure class="hero-video" data-hero-video hidden>
+                <div class="hero-video-frame">
+                <video playsinline muted loop preload="metadata"
+                    data-vertical="videos/intro-vertical.mp4" data-horizontal="videos/intro-horizontal.mp4"
+                    data-poster-vertical="videos/intro-vertical.jpg"
+                    data-poster-horizontal="videos/intro-horizontal.jpg"
+                    aria-label="Intro video from Gaege, founder of Gods of Roofing">
+                    <track kind="captions" src="videos/intro.vtt" srclang="en" label="English" default>
+                </video>
+                <button class="hero-video-sound" type="button" data-video-sound>
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor" />
+                        <path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                    Watch with sound
+                </button>
+                </div>
+                <figcaption class="hero-video-caption"><b>Gaege</b> · Founder</figcaption>
+            </figure>
             </div>
 
             <!-- Illustrative dashboard mockup -->
@@ -526,7 +558,7 @@
             <div class="container">
                 <header class="section-head">
                     <h2>What contractors say</h2>
-                    <p>Results from roofing companies we partner with.</p>
+                    <p>Results from clients we partnered with.</p>
                 </header>
 
                 <div class="results">
@@ -535,7 +567,9 @@
                             <span class="result-num">+87%</span>
                             <span class="result-label">Appointment booking speed</span>
                         </div>
-                        <blockquote>Gaege once again supported our automation system despite having tricky platforms to work with found a solution for every problem we encountered and delivered top quality work. Definitely recommend!
+                        <blockquote>Gaege once again supported our automation system despite having tricky platforms to
+                            work with found a solution for every problem we encountered and delivered top quality work.
+                            Definitely recommend!
                         </blockquote>
                         <figcaption>
                             <span class="av av-lg">JF</span>
@@ -548,12 +582,57 @@
                             <span class="result-num">+94%</span>
                             <span class="result-label">Info request conversions</span>
                         </div>
-                        <blockquote>Gaege delivered a complete automation system exactly as promised , and explained the process clearly. The final setup is running smoothly and met the scope we agreed on. Professional communication and timely delivery. Recommended for anyone wanting to have a real pro working with them, I will definitely work with him on any future projects</blockquote>
+                        <blockquote>Gaege delivered a complete automation system exactly as promised , and explained the
+                            process clearly. The final setup is running smoothly and met the scope we agreed on.
+                            Professional communication and timely delivery. Recommended for anyone wanting to have a
+                            real pro working with them, I will definitely work with him on any future projects
+                        </blockquote>
                         <figcaption>
                             <span class="av av-lg">EB</span>
                             <span><b>Edwin B.</b><small>Roofing Company Owner</small></span>
                         </figcaption>
                     </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ ABOUT ============ -->
+        <!-- Photo: save a portrait (ideally 4:5, at least 800px wide) as images/gaege.jpg.
+             If the file is missing, the photo column removes itself and the copy goes full width. -->
+        <section class="section section-paper" id="about">
+            <div class="container about">
+                <figure class="about-photo">
+                    <img src="images/gaege.jpg" alt="Gaege, founder of Gods of Roofing" width="800" height="1000"
+                        loading="lazy" decoding="async"
+                        onerror="this.closest('.about').classList.add('about-no-photo'); this.parentElement.remove();">
+                    <figcaption><b>Gaege</b><small>Founder, Gods of Roofing</small></figcaption>
+                </figure>
+                <div class="about-copy">
+                    <h2>Who actually runs this thing?</h2>
+                    <p class="about-lede">Hi, I'm Gaege. You steer the business. Your crews handle the roofs. I build
+                        the systems that bring the work in and keep it from slipping away.</p>
+                    <p>I've spent about twelve years as a software developer, building websites, apps, and the
+                        connections between them for large companies like Intuit, Jones Feliciano, and Freedom Mentor.
+                        But what I'm most proud of building is Clutter Cowboys, a junk hauling business I started from
+                        scratch with one of my best friends and grew to $30,000 a month in three months.</p>
+                    <p>In a market littered with competitors, what made that possible was everything around the hauling
+                        itself: automating the busywork, tightening every process, and being obsessive about answering
+                        customers fast and keeping them in the loop.</p>
+                    <p>I'm not a roofing installer and I'm not going to tell you how to run a crew. But a roofing
+                        company runs on the same things Clutter Cowboys did: how leads come in, how fast someone
+                        answers, how a customer gets from first call to final invoice, and whether your numbers tell you
+                        where to spend your time next</p>
+                    <p>Most roofing companies don't need more of everything. They need the leads, ad spend, and people
+                        they already have to <strong>stop leaking</strong>. That's the work: find a leak, fix it, find
+                        the next one, until more of every dollar you bring in stays in the business. That's what I love
+                        doing and why I started this company.</p>
+                    <p>When I'm not nerding out on software and business growth strategies, you can find me
+                        snowboarding, mountain biking, playing a board game, or tinkering with an electroncis project.
+                        If you're really lucky you might catch me at an open mic night honing my stand-up routine or at
+                        karaoke singing Hoobastank's "The Reason" for the 800th time.</p>
+                    <blockquote class="about-quote">Make the business you have work better before you make it bigger.
+                    </blockquote>
+                    <a class="btn btn-primary" href="#contact">Book a strategy call</a>
                 </div>
             </div>
         </section>
@@ -756,7 +835,6 @@
                         <li><a href="#services">Local search</a></li>
                         <li><a href="#services">Paid ads</a></li>
                         <li><a href="#services">Follow-up</a></li>
-                        <li><a href="#pricing">Pricing</a></li>
                     </ul>
                 </div>
                 <div>
@@ -764,6 +842,7 @@
                     <ul>
                         <li><a href="#process">How it works</a></li>
                         <li><a href="#results">Results</a></li>
+                        <li><a href="#about">About</a></li>
                         <li><a href="#faq">FAQ</a></li>
                     </ul>
                 </div>

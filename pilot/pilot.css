@@ -1,0 +1,471 @@
+/* =========================================================
+   Gods of Roofing — Lead Leak Pilot page
+   Loaded AFTER ../styles.css. The page is built from the main
+   site's components (nav, hero, section heads, features, steps,
+   plan card, results, FAQ, CTA, footer) and its color tokens.
+   This file only adds what the main site has no component for.
+   ========================================================= */
+
+/* Placeholders: obvious on purpose. Remove the class once real content is in. */
+.ph {
+    background: var(--gold-soft);
+    color: var(--gold-ink);
+    border: 1px dashed rgba(107, 78, 0, 0.45);
+    border-radius: 6px;
+    padding: 0 6px;
+    font-weight: 600;
+}
+
+/* ---------- Hero ---------- */
+.pilot-hero {
+    padding-bottom: var(--section-y);
+}
+
+.pilot-hero .hero-copy {
+    z-index: 1;
+    /* above the hero's bottom fade */
+}
+
+@media (min-width: 641px) {
+    .pilot-hero h1 {
+        max-width: 17ch;
+        font-size: clamp(2.65rem, 5.6vw, 4.4rem);
+    }
+}
+
+/* Video (click to load) */
+.vsl {
+    width: 100%;
+    max-width: 860px;
+    margin-top: clamp(32px, 5vw, 48px);
+    aspect-ratio: 16 / 9;
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    background: var(--storm);
+    border: 1px solid var(--line);
+    box-shadow: 0 30px 80px -30px rgba(18, 28, 46, 0.35);
+}
+
+.vsl-play,
+.vsl iframe {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    padding: 0;
+    background: none;
+}
+
+.vsl-poster {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.vsl-placeholder {
+    position: absolute;
+    left: 50%;
+    bottom: 16px;
+    transform: translateX(-50%);
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.vsl-btn {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    display: grid;
+    place-items: center;
+    width: 76px;
+    height: 76px;
+    margin: -38px 0 0 -38px;
+    border-radius: 50%;
+    background: var(--gold);
+    color: var(--ink);
+    box-shadow: 0 0 0 10px rgba(242, 183, 5, 0.22);
+    transition: transform .18s ease;
+}
+
+.vsl-btn svg {
+    width: 30px;
+    height: 30px;
+    margin-left: 4px;
+}
+
+.vsl-play:hover .vsl-btn {
+    transform: scale(1.06);
+}
+
+/* ---------- The leak ---------- */
+.leak {
+    display: grid;
+    gap: 40px;
+}
+
+.leak-copy {
+    max-width: 62ch;
+}
+
+/* same heading treatment as .section-head h2 / .about-copy h2 */
+.leak-copy h2 {
+    font-size: clamp(2rem, 4vw, 3.15rem);
+    font-weight: 750;
+    font-stretch: 110%;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    text-wrap: balance;
+}
+
+.leak-copy p {
+    margin-top: 18px;
+    text-wrap: pretty;
+}
+
+.leak-copy .leak-lede {
+    margin-top: 16px;
+    color: var(--slate);
+    font-size: 18px;
+}
+
+.pipe {
+    position: relative;
+    padding-left: 30px;
+}
+
+.pipe::before {
+    content: "";
+    position: absolute;
+    left: 7px;
+    top: 22px;
+    bottom: 22px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--line-2), var(--gold));
+}
+
+.pipe li {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 6px 12px;
+    padding: 13px 16px;
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    background: var(--white);
+}
+
+.pipe li+li {
+    margin-top: 10px;
+}
+
+.pipe li::before {
+    content: "";
+    position: absolute;
+    left: -30px;
+    top: 50%;
+    width: 16px;
+    height: 16px;
+    margin-top: -8px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 2px solid var(--line-2);
+}
+
+.pipe b {
+    font-weight: 650;
+    color: var(--ink);
+}
+
+.drip {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--red);
+}
+
+.drip::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 0 50% 50% 50%;
+    transform: rotate(45deg);
+    background: currentColor;
+}
+
+.pipe .pipe-end {
+    border-color: var(--gold);
+    background: var(--gold-soft);
+}
+
+.pipe .pipe-end::before {
+    background: var(--gold);
+    border-color: var(--gold);
+    box-shadow: 0 0 0 4px var(--gold-soft);
+}
+
+/* ---------- Seven leaks (on the main site's .features grid) ---------- */
+.leaks .step-num {
+    width: 38px;
+    height: 38px;
+    font-size: 16px;
+}
+
+.plug {
+    margin-top: 14px !important;
+    padding-top: 12px;
+    border-top: 1px solid var(--line);
+    font-size: 14.5px !important;
+    color: var(--ink-2) !important;
+}
+
+.plug b {
+    color: var(--ink);
+    font-weight: 650;
+}
+
+.feature-cta {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 24px;
+    background: var(--gold-soft) !important;
+}
+
+.feature-cta h3 {
+    margin-top: 0 !important;
+    font-size: 22px !important;
+    font-weight: 720;
+    font-stretch: 108%;
+}
+
+.feature-cta .btn {
+    align-self: flex-start;
+}
+
+/* ---------- How the 30 days go (main .steps, four across) ---------- */
+.step-when {
+    margin-top: 22px;
+}
+
+.step .step-when+h3 {
+    margin-top: 12px;
+}
+
+@media (min-width: 1025px) {
+    .steps-4 {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (min-width: 901px) and (max-width: 1024px) {
+    .steps-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .steps-4 .step::after {
+        display: none;
+    }
+}
+
+/* ---------- Price (main .plan-featured card) ---------- */
+.pilot-plan {
+    max-width: 580px;
+    margin-inline: auto;
+}
+
+.pilot-plan .plan-badge {
+    position: static;
+    align-self: flex-start;
+    margin-bottom: 20px;
+}
+
+.pilot-plan h2 {
+    font-size: 22px;
+    font-weight: 720;
+    font-stretch: 108%;
+    letter-spacing: -0.015em;
+    color: var(--white);
+}
+
+.pilot-plan .price {
+    flex-wrap: wrap;
+    gap: 4px 12px;
+}
+
+.pilot-plan .price-amount {
+    font-size: clamp(48px, 9vw, 64px);
+}
+
+.pilot-plan .price-per.ph {
+    font-size: 13px;
+}
+
+.pilot-plan-copy {
+    margin: 24px 0 28px;
+    padding-top: 22px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.pilot-plan-copy p+p {
+    margin-top: 12px;
+}
+
+.pilot-plan-copy .pilot-plan-lead {
+    color: var(--white);
+    font-weight: 650;
+}
+
+.pilot-plan-copy .pilot-plan-sig {
+    color: #8794AA;
+    font-size: 15px;
+}
+
+/* ---------- Fit ---------- */
+.fit .plan {
+    border-radius: var(--r-lg);
+}
+
+.checks-no li::before {
+    background: #FBE7E3 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='m7 7 6 6M13 7l-6 6' fill='none' stroke='%23C2412D' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") center / 20px no-repeat;
+}
+
+/* ---------- Proof ---------- */
+.result-empty {
+    grid-column: 1 / -1;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 160px;
+    background: transparent;
+    border-style: dashed;
+    border-color: var(--line-2);
+}
+
+.result-empty-note {
+    margin-top: 12px;
+    font-size: 14px;
+    color: var(--muted);
+}
+
+/* ---------- Booking (main .cta, single column with a calendar) ---------- */
+.cta-book {
+    grid-template-columns: 1fr;
+}
+
+.cta-book .cta-copy {
+    text-align: center;
+}
+
+.cta-book .cta-copy>p {
+    margin-inline: auto;
+}
+
+.cta-calendar {
+    position: relative;
+}
+
+.calendar {
+    min-height: 680px;
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    background: var(--white);
+    display: grid;
+    place-items: center;
+}
+
+.calendar iframe {
+    display: block;
+    width: 100%;
+    height: 760px;
+    border: 0;
+}
+
+.calendar.is-loaded {
+    display: block;
+}
+
+.calendar-placeholder {
+    margin: 24px;
+    text-align: center;
+}
+
+.calendar-fallback,
+.calendar-note {
+    margin-top: 14px;
+    text-align: center;
+    font-size: 14.5px;
+}
+
+.calendar-fallback a {
+    color: var(--white);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.calendar-note {
+    color: #8794AA;
+}
+
+/* ---------- Footer ---------- */
+.pilot-footer {
+    border-top: 0;
+    align-items: center;
+}
+
+.pilot-footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 20px;
+}
+
+.pilot-footer-links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+}
+
+/* ---------- Sticky CTA (phones and small tablets) ---------- */
+.sticky-cta {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 50;
+    padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+    background: rgba(255, 255, 255, 0.92);
+    border-top: 1px solid var(--line);
+    -webkit-backdrop-filter: saturate(160%) blur(14px);
+    backdrop-filter: saturate(160%) blur(14px);
+    transition: transform .25s ease, opacity .25s ease;
+}
+
+.sticky-cta.is-hidden {
+    transform: translateY(110%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+@media (max-width: 900px) {
+    body.pilot {
+        padding-bottom: 76px;
+    }
+}
+
+@media (min-width: 901px) {
+    .sticky-cta {
+        display: none;
+    }
+
+    .leak {
+        grid-template-columns: 1fr 1fr;
+        gap: 64px;
+        align-items: center;
+    }
+}
